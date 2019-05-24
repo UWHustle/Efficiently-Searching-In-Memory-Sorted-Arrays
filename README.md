@@ -136,7 +136,7 @@ The algorithm we have implemented in our code are:
 ### Note
 + If the searchbench is not producing output for an experiment the most probable cause it that a parameter is not
 tab separated in the "experiment.tsv"
-+ The result of experiments with small datasets can have significant variance due to uncontrollable hardware factors (i.e. caching). Repeating such experiments multiple times is suggested to get stable results.    
++ The results of experiments with small datasets can have significant variance due to uncontrollable hardware factors (i.e. caching). Repeating such experiments multiple times is suggested to get stable results.    
 
 ## Implementation
 Please consult the README in the src folder for more information on how the code is structured.
