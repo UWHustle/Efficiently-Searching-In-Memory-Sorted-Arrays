@@ -54,7 +54,7 @@ template <int record_bytes> struct Input : public InputBase {
 private:
   auto uniform(long seed) {
     std::mt19937_64 rng(seed);
-    std::uniform_int_distribution<Key> dist(1, (1L << 63) - 2);
+    std::uniform_int_distribution<Key> dist(1, (1ULL << 63) - 2);
     std::vector<Key> v(keys.size());
     for (auto &y : v)
       y = dist(rng);
