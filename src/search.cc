@@ -17,6 +17,8 @@
 #include <unordered_map>
 #include <vector>
 #include <x86intrin.h>
+#include <cstring>
+
 
 // Takes one argument, a tsv file with the specification of the experiment to
 // run.

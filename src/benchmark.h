@@ -23,6 +23,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <memory>
+
 
 template <typename T> T parse(std::string s) {
   T t;
