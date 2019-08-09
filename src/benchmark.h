@@ -23,6 +23,8 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <memory>
+
 
 template <typename T> T parse(std::string s) {
   T t;
@@ -52,7 +54,7 @@ template <int record_bytes> struct Input : public InputBase {
 private:
   auto uniform(long seed) {
     std::mt19937_64 rng(seed);
-    std::uniform_int_distribution<Key> dist(1, (1L << 63) - 2);
+    std::uniform_int_distribution<Key> dist(1, (1ULL << 63) - 2);
     std::vector<Key> v(keys.size());
     for (auto &y : v)
       y = dist(rng);
@@ -213,8 +215,11 @@ struct Run {
         std::shuffle(it, it + n_samples, rng);
     }
 
+    // make copy to pass it easier in the parallel region as private copy (firstprivate)
+    const auto inputsum = inputC.sum;
+
 #pragma omp parallel default(none)                                             \
-    num_threads(run.n_thds) shared(queries, run, search, ns, subset_indexes)
+    num_threads(run.n_thds) firstprivate(n_samples,inputsum) shared(queries, run, search, ns, subset_indexes)
     {
       const int tid = omp_get_thread_num();
       const auto &thread_ns = &ns[tid * n_samples];
@@ -222,7 +227,7 @@ struct Run {
       auto valSum = 0UL;
       for (int sample_index = 0;; sample_index++) {
         if (sample_index == n_samples) {
-          if (!infinite_repeat || valSum != inputC.sum)
+          if (!infinite_repeat || valSum != inputsum)
             break;
           valSum = sample_index = 0;
         }
@@ -243,7 +248,7 @@ struct Run {
           thread_ns[sample_index] = ns_elapsed / sample_size;
       }
 #pragma omp critical
-      run.ok = run.ok && valSum == inputC.sum; // Verify correct results.
+      run.ok = run.ok && valSum == inputsum; // Verify correct results.
     }
     return ns;
   }
