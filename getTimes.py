@@ -7,7 +7,13 @@ import sys
 import subprocess
 from subprocess import DEVNULL 
 
-call(['make', 'searchbench'])
+maketarget=""
+
+if len(sys.argv) > 1:
+  if sys.argv[1] == "gcc":
+    maketarget="_gcc"
+
+call(['make', 'searchbench'+maketarget])
 run_param = ['Run','DatasetSize','Distribution','Parameter','#threads','SearchAlgorithm','RecordSizeBytes']
 
 with open("outfile", "w") as log_file:
