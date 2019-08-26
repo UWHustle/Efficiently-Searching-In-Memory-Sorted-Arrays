@@ -1,7 +1,7 @@
 ## Efficiently Searching In MemorySorted Arrays
 This repo hosts the code used in the paper   
 ["Efficiently Searching In-Memory Sorted Arrays:Revenge of the Interpolation 
-Search?"](http://pages.cs.wisc.edu/~jignesh/publ/Revenge_of_the_Interpolation_Search.pdf)
+Search?"](http://pages.cs.wisc.edu/~chronis/files/efficiently_searching_sorted_arrays.pdf)
  to be presented at ACM SIGMOD 2019.
 
 ## Introduction
@@ -36,19 +36,19 @@ search each subset.
 
 ## How to use
 In our paper we used clang5 to compile our code and to replicate our experiments
-we provide the option to dowload and use the same version of clang. If you do not
-want to download and use clang you can use gcc. 
+we provide the option to dowload and use the same version of clang. As an alternative 
+you can use gcc.
++ The installation scripts are validated on Ubuntu 16.04 and 18.04
+
 ### Compilation with clang5
 1) Run the install script "install.sh", which will download clang5, openmp,
    python3 and pandas. clang5 will be downloaded inside this repo.
-2) Run "make" to produce the "searchbench" executable.
+2) Run "make clang5_searchbench" to produce the "searchbench" executable.
 
 ### Compilation with gcc
 1) Run the install script "install_noclang.sh", which will download openmp,
    python3 and pandas.
-2) Run "make searchbench_gcc" to produce the "searchbench" executable.
-3) When you use the "getTimes.py" script remember to invoke it as "getTimes.py gcc"
-+ The installation script is validated on Ubuntu 16.04 and 18.04
+2) Run "make" to produce the "searchbench" executable.
 
 ### Usage
 The "searchbench" execution expects one argument, a tsv file of
@@ -79,12 +79,11 @@ Run	DatasetSize	Distribution	Parameter	#threads	SearchAlgorithm	RecordSizeBytes	
   1	       2000	     uniform	       42	       1	            sip	              8	65.243
 ```
 
-We provide a helper function implemented in Python "getTimes.py" that compiles the code,
+We provide a helper function implemented in Python "getTimes.py" that
 runs the "searchbench" using as input the file named "experiments.tsv" and reports back for each run
 the time to search one record, calculated as described in Section [Performance Evaluation](#performance-evaluation)
 This is the easiest way to benchmark different search methods. The getTimes.py can be easily modified to report more
 statistics from each experiment.
-Note: Please remember to invoke the script as "getTimes.py gcc" if you are using gcc instead of clang to compile our code.
 ```bash
 $ python3 getTimes.py 
 make: 'searchbench' is up to date.
@@ -146,8 +145,6 @@ The algorithm we have implemented in our code are:
 + If the searchbench is not producing output for an experiment the most probable cause it that a parameter is not
 tab separated in the "experiment.tsv"
 + The results of experiments with small datasets can have significant variance due to uncontrollable hardware factors (i.e. caching). Repeating such experiments multiple times is suggested to get stable results.    
-+ Please remember to use the "searchbench_gcc" make target and invoke the script as "getTimes.py gcc" if you are using
-  gcc instead of clang to compile our code.
 
 ## Implementation
 Please consult the README in the src folder for more information on how the code is structured.

@@ -4,8 +4,13 @@ GCCCXXFLAGS=-std=c++17
 CLANGHOME=./clang5
 CLANGCXX=$(CLANGHOME)/bin/clang++
 CLANGCXXFLAGS=-std=c++17 -stdlib=libc++
-LDFLAGS=-Xpreprocessor -fopenmp -lomp
 
+OS := $(shell uname)
+ifeq ($(OS),Darwin)
+	LDFLAGS=-Xpreprocessor -fopenmp -lomp
+else
+	LDFLAGS=-fopenmp
+endif
 
 HEADERS=src/benchmark.h src/bin.h src/padded_vector.h src/interpolate.h src/util.h src/div.h src/lin.h src/bin_eyt.h
 SOURCES=src/search.cc
