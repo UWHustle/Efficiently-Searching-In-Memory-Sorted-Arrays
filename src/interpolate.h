@@ -56,23 +56,6 @@ public:
     }
   };
 
-  // Linear interpolation function that uses interger arithmetic.
-  struct IntDiv {
-    IntDiv(const Vector &a)
-        : A(a), i_range_width((A.back() - A[0]) / ((uint64_t)A.size() - 1)) {}
-
-    const Vector &A;
-    Key i_range_width;
-
-    Index operator()(const Key x, const Index left, const Index right) {
-      return left + (x - A[left]) / ((A[right] - A[left]) / (right - left));
-    }
-    Index operator()(const Key x, const Index mid) {
-      return mid + (x - A[mid]) / i_range_width;
-    }
-    Index operator()(const Key x) { return (x - A[0]) / i_range_width; }
-  };
-
   // Three point interpolation function.
   template <bool t = false, bool appx = false> struct ThreePointInterpolation {
     ThreePointInterpolation (const Vector &a)
@@ -313,16 +296,6 @@ class tip : public IBase<record_bytes> {
   }
 };
 
-/*
- * is : Vanilla Interpolation Search
- * sip : SIP
- * is_seq : Interpolation-Sequential
- * sip_no_reuse: Don't re-use slope
- * sip_no_guard : SIP with no guard (guard = 0)
- * sip_fp : use FP division
- * sip_idiv : use int division
- * tip : Three Point Interpolation Search
- */
 template <int record_bytes>
 using is = InterpolationSearch<record_bytes,
                          typename IBase<record_bytes>::template Float<false>,
@@ -330,23 +303,5 @@ using is = InterpolationSearch<record_bytes,
 template <int RECORD, int GUARD>
 using sip = SIPSearch<RECORD, IBase<RECORD>::Recurse,
                                typename IBase<RECORD>::template Float<>, GUARD>;
-template <int RECORD>
-using is_seq = SIPSearch<RECORD, 1>;
-
-template <int RECORD, int GUARD>
-using sip_no_reuse =
-  InterpolationSearch<RECORD, typename IBase<RECORD>::template Float<>,
-                  IBase<RECORD>::Recurse, GUARD>;
-template <int RECORD>
-using sip_no_guard =
-  SIPSearch<RECORD, IBase<RECORD>::Recurse,
-                       typename IBase<RECORD>::template Float<>, -1>;
-template <int RECORD>
-using sip_fp = SIPSearch<RECORD, IBase<RECORD>::Recurse,
-  typename IBase<RECORD>::template Float<false>>;
-
-template <int RECORD>
-using sip_idiv = SIPSearch<RECORD, IBase<RECORD>::Recurse,
-                                    typename IBase<RECORD>::IntDiv>;
 
 #endif

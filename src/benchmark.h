@@ -2,7 +2,6 @@
 #define BENCHMARK_H
 
 #include "bin.h"
-#include "bin_eyt.h"
 #include "interpolate.h"
 #include "lin.h"
 
@@ -161,6 +160,7 @@ struct Run {
     return m;
   }
 
+  // Read files and creates runs
   static auto load(std::ifstream &&file) {
     auto header = reverse_index(split(read_line(file), '\t'));
     assert(header.size() == 6);
@@ -264,39 +264,8 @@ struct Run {
         // SIP and TIP
         make_tuple("sip", measure2<sip<record_bytes, 8>, record_bytes>),
         make_tuple("tip", measure2<tip<record_bytes, 64>, record_bytes>),
-        // Interpolation Sequential
-        make_tuple("is-seq", measure2<is_seq<record_bytes>, record_bytes>),
         // Binary Search
         make_tuple("bs", measure2<Binary<record_bytes>, record_bytes>),
-        // A simpler version of binary search (keeps tracks of the search
-        // interval
-        // in a different way.
-        make_tuple("b-naive", measure2<BinaryLR<record_bytes>, record_bytes>),
-        // The search methods proposed in https://arxiv.org/pdf/1509.05053.pdf
-        make_tuple("b-eyt", measure2<b_eyt<record_bytes, false>, record_bytes>),
-        make_tuple("b-eyt-p",
-                   measure2<b_eyt<record_bytes, true>, record_bytes>),
-        // SIP and TIP with different guard sizes
-        make_tuple("sip-0", measure2<sip<record_bytes, 0>, record_bytes>),
-        make_tuple("sip-16", measure2<sip<record_bytes, 16>, record_bytes>),
-        make_tuple("sip-32", measure2<sip<record_bytes, 32>, record_bytes>),
-        make_tuple("sip-64", measure2<sip<record_bytes, 64>, record_bytes>),
-        make_tuple("sip-128", measure2<sip<record_bytes, 128>, record_bytes>),
-        make_tuple("tip-0", measure2<tip<record_bytes, 0>, record_bytes>),
-        make_tuple("tip-8", measure2<tip<record_bytes, 8>, record_bytes>),
-        make_tuple("tip-16", measure2<tip<record_bytes, 16>, record_bytes>),
-        make_tuple("tip-32", measure2<tip<record_bytes, 32>, record_bytes>),
-        make_tuple("tip-128", measure2<tip<record_bytes, 128>, record_bytes>),
-        make_tuple("tip-256", measure2<tip<record_bytes, 256>, record_bytes>),
-        make_tuple("tip-512", measure2<tip<record_bytes, 512>, record_bytes>),
-        make_tuple("tip-1024", measure2<tip<record_bytes, 1024>, record_bytes>),
-        // Variations of SIP with optimizations disabled.
-        make_tuple("sip-no-guard",
-                   measure2<sip_no_guard<record_bytes>, record_bytes>),
-        make_tuple("sip-fp", measure2<sip_fp<record_bytes>, record_bytes>),
-        make_tuple("sip-idiv", measure2<sip_idiv<record_bytes>, record_bytes>),
-        make_tuple("sip-no-reuse-16",
-                   measure2<sip_no_reuse<record_bytes, 16>, record_bytes>),
     };
     auto it = std::find_if(
         algorithm_mapper.begin(), algorithm_mapper.end(), [run](const auto &x) {

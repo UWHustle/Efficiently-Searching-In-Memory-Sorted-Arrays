@@ -4,9 +4,9 @@ GCCCXXFLAGS=-std=c++17
 CLANGHOME=./clang5
 CLANGCXX=$(CLANGHOME)/bin/clang++
 CLANGCXXFLAGS=-std=c++17 -stdlib=libc++
-LDFLAGS=-fopenmp
+LDFLAGS=-Xpreprocessor -fopenmp -lomp
 
-HEADERS=src/benchmark.h src/bin.h src/padded_vector.h src/interpolate.h src/util.h src/div.h src/lin.h src/bin_eyt.h
+HEADERS=src/benchmark.h src/bin.h src/padded_vector.h src/interpolate.h src/util.h src/div.h src/lin.h
 SOURCES=src/search.cc
 
 .PHONY: run gdb clean perf
