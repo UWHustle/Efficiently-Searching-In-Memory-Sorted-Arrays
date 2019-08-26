@@ -6,6 +6,7 @@ CLANGCXX=$(CLANGHOME)/bin/clang++
 CLANGCXXFLAGS=-std=c++17 -stdlib=libc++
 LDFLAGS=-Xpreprocessor -fopenmp -lomp
 
+
 HEADERS=src/benchmark.h src/bin.h src/padded_vector.h src/interpolate.h src/util.h src/div.h src/lin.h src/bin_eyt.h
 SOURCES=src/search.cc
 
