@@ -55,7 +55,7 @@ clang5_searchbench: $(SOURCES) $(HEADERS)
 
 clang5_debug: CLANGCXXFLAGS += -O0
 clang5_debug: $(SOURCES) $(HEADERS)
-	$(CLANGCXX) $(CLANGCXXFLAGS) $(SOURCES) -o$@ $(LDFLAGS)
+	$(CLANGCXX) $(CLANGCXXFLAGS) $(SOURCES) -odebug $(LDFLAGS)
 
 clang5_dump: src/dump.cc src/benchmark.h
-	$(CXX) $(CLANGCXXFLAGS) src/dump.cc -o $@ $(LDFLAGS)
+	$(CLANGCXX) $(CLANGCXXFLAGS) src/dump.cc -o $dump $(LDFLAGS)
