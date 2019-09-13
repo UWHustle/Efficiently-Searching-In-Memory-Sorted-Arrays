@@ -1,4 +1,6 @@
 #include "benchmark.h"
+#include "benchmark_datasets.h"
+#include "benchmark_utils.h"
 #include "util.h"
 
 #include <algorithm>
@@ -23,10 +25,18 @@
 // Takes one argument, a tsv file with the specification of the experiment to
 // run.
 int main(int argc, char *argv[]) {
-  using RunTuple = std::tuple<InputParam::Tuple, std::string, int>;
+  using RunTuple = std::tuple<DatasetParam::Tuple, std::string, int>;
 
-  std::vector<Run> runs = Run::load(std::ifstream(argv[1]));
-  auto inputs = InputBase::load(runs);
+  // Load the experiment specification from the Dataset file
+  std::vector<Run> runs = loadRunsFromFile(std::ifstream(argv[1]));
+
+  // create the Dataset needed by the experiments
+  DatasetBase::DatasetMap inputs_map;
+  for (Run r : runs){
+    createDataset(r.input_param, inputs_map);
+  }
+
+  // Run the experiments
   bool first = true;
   int run_ix = 0;
 
@@ -63,7 +73,10 @@ int main(int argc, char *argv[]) {
       t0 = t1;
     }
 
-    for (auto ns : run(*inputs.at(run.input_param))) {
+    // Run the experiment using the run specificatiom and the corresponding
+    // dataset. Each experiments measures the time to search subsets of
+    // 1000 keys.
+    for (auto ns : run.search(*inputs_map.at(run.input_param))) {
       if (!run.ok) {
         break;
       }

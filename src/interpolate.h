@@ -2,7 +2,7 @@
 #define INTERPOLATE_H
 
 #include "div.h"
-#include "lin.h"
+#include "linear_search.h"
 #include "padded_vector.h"
 
 #include <algorithm>
@@ -16,87 +16,18 @@
 
 // The base for all interpolation based search algorithms.
 // Implements the interpolation functions used in the search algorithms.
-template <int record_bytes> class IBase {
+template <int record_bytes> class InterpolationBase {
 public:
   using Vector = PaddedVector<record_bytes>;
   using Index = int64_t;
 
   static constexpr int Recurse = -1;
-  static constexpr bool Precompute = true;
-  static constexpr bool Intercept = true;
-
-  // Liner interpolation function using floating point arithmetic.
-  // appx flag controls if fixed point arithmetic is used.
-  template <bool appx = true> struct Float {
-    Float(const Vector &a)
-        : A(a), slope(FixedPoint::Gen(A.size() - 1) / (A.back() - A[0])),
-          f_aL(A[0]), f_width_range((double)((uint64_t)A.size() - 1) /
-                                    (double)(A.back() - A[0])) {}
-
-    const Vector &A;
-    const FixedPoint slope;
-    const double f_aL;
-    const double f_width_range;
-
-    Index operator()(const Key x, const Index left, const Index right) {
-      return left +
-             ((double)x - (double)(A[left])) / (double)(A[right] - A[left]) *
-                 (double)(right - left);
-    }
-
-    Index operator()(const Key x, const Index mid) {
-      return appx ? (x < A[mid] ? mid - slope * (uint64_t)(A[mid] - x)
-                                : mid + slope * (uint64_t)(x - A[mid]))
-                  : mid + (Index)(((double)x - (double)A[mid]) * f_width_range);
-    }
-
-    Index operator()(const Key x) {
-      return appx ? slope * (uint64_t)(x - A[0])
-                  : (Index)(((double)x - f_aL) * f_width_range);
-    }
-  };
-
-  // Three point interpolation function.
-  template <bool t = false, bool appx = false> struct ThreePointInterpolation {
-    ThreePointInterpolation (const Vector &a)
-        : A(a), d((uint64_t)A.size() >> 1), y_1(A[d]), diff_y_01(A[0] - y_1),
-          a_0(diff_y_01 == (y_1 - A.back())
-                  ? 0.99999999999999
-                  : diff_y_01 / (double)(y_1 - A.back())),
-          diff_scale(A[0] - a_0 * A.back()), d_a((1.0 + a_0) * d) {}
-    const Vector &A;
-    const Index d;
-    const Key y_1;
-    const double diff_y_01, a_0, diff_scale, d_a;
-    // The same function implemented in python.
-    /*
-     * def ThreePointInterpolation(points, y_star):
-         x, y = zip(*[(x, y - y_star) for x, y in points])
-         error = (x[1] - x[2]) * (x[1] - x[0]) * y[1] * (y[2] - y[0]) / (
-             (x[1] - x[2]) * (y[0] - y[1]) * y[2] + (x[1] - x[0]) * (y[1] -
-     y[2]) * y[0])
-         return x[1] + error
-     */
-    Index operator()(const Key y, const Index x_0, const Index x_1,
-                     const Index x_2) const {
-      double y_0 = A[x_0] - y, y_1 = A[x_1] - y, y_2 = A[x_2] - y,
-             error = y_1 * (x_1 - x_2) * (x_1 - x_0) * (y_2 - y_0) /
-                     (y_2 * (x_1 - x_2) * (y_0 - y_1) +
-                      y_0 * (x_1 - x_0) * (y_1 - y_2));
-      return x_1 + (Index)error;
-    }
-
-    Index operator()(const Key x) {
-      return d + (Index)(d_a * (y_1 - x) / (diff_scale - x * (a_0 + 1.0)));
-    }
-  };
 
 protected:
   // The array to search.
   const Vector &A;
 
-
-  IBase(const Vector &v) : A(v) {}
+  InterpolationBase(const Vector &v) : A(v) {}
 };
 
 // Implementation of the search algoritms.
@@ -105,20 +36,20 @@ protected:
 
 // Interpolation Seach - IS
 template <int record_bytes,
-          class Interpolate = typename IBase<record_bytes>::template Float<>,
-          int nIter = IBase<record_bytes>::Recurse, int guard_off = 16,
+          class Interpolate = typename InterpolationBase<record_bytes>::template Float<>,
+          int nIter = InterpolationBase<record_bytes>::Recurse, int guard_off = 16,
           bool min_width = false>
-class InterpolationSearch : public IBase<record_bytes> {
-  using Super = IBase<record_bytes>;
-  using Vector = typename Super::Vector;
-  using typename Super::Index;
-  using Super::A;
+class InterpolationSearch : public InterpolationBase<record_bytes> {
+  using InterBase = InterpolationBase<record_bytes>;
+  using Vector = typename InterBase::Vector;
+  using typename InterBase::Index;
+  using InterBase::A;
   using Linear = LinearUnroll<Vector>;
 
   Interpolate interpolate;
 
 public:
-  InterpolationSearch(const Vector &v) : Super(v), interpolate(A) {}
+  InterpolationSearch(const Vector &v) : InterBase(v), interpolate(A) {}
 
   __attribute__((always_inline)) Key operator()(const Key x) {
     assert(A.size() >= 1);
@@ -163,21 +94,21 @@ public:
 };
 
 // Slope-reuse Interpolation Search - SIP
-template <int record_bytes, int nIter = IBase<record_bytes>::Recurse,
-          class Interpolate = typename IBase<record_bytes>::template Float<>,
+template <int record_bytes, int nIter = InterpolationBase<record_bytes>::Recurse,
+          class Interpolate = typename InterpolationBase<record_bytes>::template Float<>,
           int guard_off = 8>
-class SIPSearch : public IBase<record_bytes> {
-  using Super = IBase<record_bytes>;
-  using Vector = typename Super::Vector;
-  using typename Super::Index;
-  using Super::A;
-  using Super::Recurse;
+class SIPSearch : public InterpolationBase<record_bytes> {
+  using InterBase = InterpolationBase<record_bytes>;
+  using Vector = typename InterBase::Vector;
+  using typename InterBase::Index;
+  using InterBase::A;
+  using InterBase::Recurse;
   using Linear = LinearUnroll<Vector>;
 
   Interpolate interpolate;
 
 public:
-  SIPSearch(const Vector &v) : Super(v), interpolate(A) {}
+  SIPSearch(const Vector &v) : InterBase(v), interpolate(A) {}
 
   // TODO replace with flatten?
   __attribute__((always_inline)) Key operator()(const Key x) {
@@ -229,14 +160,14 @@ public:
 
 // Three Point Interpolation Search - TIP Search
 template <int record_bytes, int guard_off,
-    class Interpolate = typename IBase<record_bytes>::template ThreePointInterpolation<>>
-class tip : public IBase<record_bytes> {
-  using Super = IBase<record_bytes>;
-  using Vector = typename Super::Vector;
-  using typename Super::Index;
-  using Super::A;
+    class Interpolate = typename InterpolationBase<record_bytes>::template ThreePointInterpolation<>>
+class tip : public InterpolationBase<record_bytes> {
+  using InterBase = InterpolationBase<record_bytes>;
+  using Vector = typename InterBase::Vector;
+  using typename InterBase::Index;
+  using InterBase::A;
   using Linear = LinearUnroll<Vector>;
-  static constexpr int nIter = Super::Recurse;
+  static constexpr int nIter = InterBase::Recurse;
   static constexpr bool min_width = false;
 
   Interpolate interpolate;
@@ -250,7 +181,7 @@ class tip : public IBase<record_bytes> {
   }
 
  public:
-  tip(const Vector &v) : Super(v), interpolate(A) { assert(A.size() >= 1); }
+  tip(const Vector &v) : InterBase(v), interpolate(A) { assert(A.size() >= 1); }
 
   __attribute__((always_inline)) Key operator()(const Key x) {
     Index left = 0, right = A.size() - 1, next_1 = A.size() >> 1,
@@ -298,10 +229,10 @@ class tip : public IBase<record_bytes> {
 
 template <int record_bytes>
 using is = InterpolationSearch<record_bytes,
-                         typename IBase<record_bytes>::template Float<false>,
-                         IBase<record_bytes>::Recurse, -1>;
+        typename InterpolationBase<record_bytes>::template Float<false>,
+        InterpolationBase<record_bytes>::Recurse, -1>;
 template <int RECORD, int GUARD>
-using sip = SIPSearch<RECORD, IBase<RECORD>::Recurse,
-                               typename IBase<RECORD>::template Float<>, GUARD>;
+using sip = SIPSearch<RECORD, InterpolationBase<RECORD>::Recurse,
+typename InterpolationBase<RECORD>::template Float<>, GUARD>;
 
 #endif

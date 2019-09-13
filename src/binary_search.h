@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <cinttypes>
 
-#include "lin.h"
+#include "linear_search.h"
 #include "padded_vector.h"
 #include "util.h"
 
