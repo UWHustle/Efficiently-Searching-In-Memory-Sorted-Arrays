@@ -58,7 +58,7 @@ std::vector<std::string> split(std::string s, char delim = ',') {
 struct Run;
 struct DatasetParam;
 
-static auto reverseRunFileIndex(std::vector<std::string> v) {
+auto reverseRunFileIndex(std::vector<std::string> v) {
   std::map<std::string, long> m;
   int i = 0;
   for (auto s : v)
@@ -66,7 +66,7 @@ static auto reverseRunFileIndex(std::vector<std::string> v) {
   return m;
 }
 
-static auto loadRunsFromFile(std::ifstream &&file) {
+auto loadRunsFromFile(std::ifstream &&file) {
   auto header = reverseRunFileIndex(split(read_line(file), '\t'));
   assert(header.size() == 6);
   std::vector<Run> runs;
@@ -90,32 +90,33 @@ static void createDataset(DatasetParam dataset_param,
                           DatasetBase::DatasetMap& input_map) {
   // The dataset does not exist
   if (input_map.count(dataset_param) == 0) {
-      std::cerr << "Creating Dataset -> size:" << dataset_param.n
-                << ", distribution: " << dataset_param.distribution
-                << ", distribution parameter: " << dataset_param.param << '\n';
+    std::cerr << "Creating Dataset -> size:" << dataset_param.n
+              << ", distribution: " << dataset_param.distribution
+              << ", distribution parameter: " << dataset_param.param << '\n';
 
-      auto dataset_params = split(dataset_param.param);
+    auto dataset_params = split(dataset_param.param);
     input_map.emplace((DatasetParam::Tuple)dataset_param, [=]() {
-        switch (dataset_param.record_bytes) {
-          case 8:
-              return static_cast<std::unique_ptr<DatasetBase>>(
-                  std::make_unique<Dataset<8>>(
-                      dataset_param.n, dataset_param.distribution, dataset_params));
-          case 32:
-              return static_cast<std::unique_ptr<DatasetBase>>(
-                  std::make_unique<Dataset<32>>(
-                      dataset_param.n, dataset_param.distribution, dataset_params));
-          case 128:
-              return static_cast<std::unique_ptr<DatasetBase>>(
-                  std::make_unique<Dataset<128>>(
-                      dataset_param.n, dataset_param.distribution, dataset_params));
-          default:
-            assert(!"record size not supported");
-        };
-        return std::make_unique<DatasetBase>();
-      }());
+      switch (dataset_param.record_bytes) {
+        case 8:
+          return static_cast<std::unique_ptr<DatasetBase>>(
+              std::make_unique<Dataset<8>>(
+                  dataset_param.n, dataset_param.distribution, dataset_params));
+        case 32:
+          return static_cast<std::unique_ptr<DatasetBase>>(
+              std::make_unique<Dataset<32>>(
+                  dataset_param.n, dataset_param.distribution, dataset_params));
+        case 128:
+          return static_cast<std::unique_ptr<DatasetBase>>(
+              std::make_unique<Dataset<128>>(
+                  dataset_param.n, dataset_param.distribution, dataset_params));
+        default:
+          assert(!"record size not supported");
+      };
+      return std::make_unique<DatasetBase>();
+    }());
   }
   std::cerr << std::endl;
 }
+
 
 #endif //BENCHMARK_UTILS_H

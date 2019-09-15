@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    // Run the experiment using the run specificatiom and the corresponding
+    // Run the experiment using the run specification and the corresponding
     // dataset. Each experiments measures the time to search subsets of
     // 1000 keys.
     for (auto ns : run.search(*datasets_map.at(run.dataset_param))) {

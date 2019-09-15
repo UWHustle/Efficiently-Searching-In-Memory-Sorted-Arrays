@@ -148,5 +148,4 @@ template <int record_bytes> struct Dataset : public DatasetBase {
   }
 };
 
-
 #endif

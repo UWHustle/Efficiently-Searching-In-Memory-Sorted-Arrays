@@ -75,7 +75,8 @@ struct Run {
     const auto inputsum = inputDataset.sum;
 
 #pragma omp parallel default(none)                                             \
-    num_threads(run.n_thds) firstprivate(n_samples, inputsum) shared(keys_to_search_for, run, searchAlgorithm, ns, subset_indexes)
+    num_threads(run.n_thds) firstprivate(n_samples, inputsum) \
+    shared(keys_to_search_for, run, searchAlgorithm, ns, subset_indexes)
     {
       const int tid = omp_get_thread_num();
       const auto &thread_ns = &ns[tid * n_samples];
