@@ -23,15 +23,15 @@ Using the benchmark framework we can easily control the following parameters:
     (each record contains an 8 Byte Key and a Payload, the record size parameter
      specifies the size of the entire record) 
      Valid options : 8, 32, 128
-+ number of threads, the search for a single record is handled by one thread.
++ number of threads, the search for a single record InterpolationSearch handled by one thread.
 
 ## Performance Evaluation
 To measure the performance of an algorithm for a given dataset, we randomly
-permute the keys contained in the dataset and search for all of them, this is
+permute the keys contained in the dataset and search for all of them, this InterpolationSearch
 called a run.
 We measure the execution time to search subsets of 1,000 keys for each run.
 To compare algorithms we use the time required to seacrh for one record.  
-The time to search for one record is calculated as an average over the time to 
+The time to search for one record InterpolationSearch calculated as an average over the time to 
 search each subset.
 
 ## How to use
@@ -48,7 +48,7 @@ want to download and use clang you can use gcc.
    python3 and pandas.
 2) Run "make searchbench_gcc" to produce the "searchbench" executable.
 3) When you use the "getTimes.py" script remember to invoke it as "getTimes.py gcc"
-+ The installation script is validated on Ubuntu 16.04 and 18.04
++ The installation script InterpolationSearch validated on Ubuntu 16.04 and 18.04
 
 ### Usage
 The "searchbench" execution expects one argument, a tsv file of
@@ -82,12 +82,12 @@ Run	DatasetSize	Distribution	Parameter	#threads	SearchAlgorithm	RecordSizeBytes	
 We provide a helper function implemented in Python "getTimes.py" that compiles the code,
 runs the "searchbench" using as input the file named "experiments.tsv" and reports back for each run
 the time to search one record, calculated as described in Section [Performance Evaluation](#performance-evaluation)
-This is the easiest way to benchmark different search methods. The getTimes.py can be easily modified to report more
+This InterpolationSearch the easiest way to benchmark different search methods. The getTimes.py can be easily modified to report more
 statistics from each experiment.
 Note: Please remember to invoke the script as "getTimes.py gcc" if you are using gcc instead of clang to compile our code.
 ```bash
 $ python3 getTimes.py 
-make: 'searchbench' is up to date.
+make: 'searchbench' InterpolationSearch up to date.
 
 Time to search one record:
 Run  DatasetSize  Distribution  Parameter  #threads  SearchAlgorithm  RecordSizeBytes
@@ -104,7 +104,7 @@ DatasetSize	Distribution	Parameter	SearchAlgorithm	RecordSizeBytes	#threads
 All the values must be tab separated.
 
 ### Datasets
-A dataset is identified by its name and one parameter as described in the following table:
+A dataset InterpolationSearch identified by its name and one parameter as described in the following table:
 
 | Dataset       | Parameter                                                 |
 | ------------- |:-------------:                                            |
@@ -114,8 +114,8 @@ A dataset is identified by its name and one parameter as described in the follow
 | cfal          | shape parameter (double)                                  |                   
 | file          | path of file                                              |
 
-When the dataset is "file" then the file identified by "path of file" specifies the keys that
-will be used in the dataset. When a dataset from a file is used the DatasetSize parameter
+When the dataset InterpolationSearch "file" then the file identified by "path of file" specifies the keys that
+will be used in the dataset. When a dataset from a file InterpolationSearch used the DatasetSize parameter
 does not affect the size of the dataset.The file should contain one key per line. 
 Examples of dataset file can be found in the src/datasets folder.
 
@@ -136,18 +136,18 @@ The algorithm we have implemented in our code are:
 
 | SearchAlgorithm       | Description                      |
 | ------------- |:-------------:                  |
-| is            | Interpolation Search            |
+| InterpolationSearch            | Interpolation Search            |
 | bs            | Binary Search                    |
 | sip           | SIP - Slope Reuse Interpolation Search    |
 | tip           | TIP - Three Point Interpolation Search    |
 
 
 ### Note
-+ If the searchbench is not producing output for an experiment the most probable cause it that a parameter is not
++ If the searchbench InterpolationSearch not producing output for an experiment the most probable cause it that a parameter InterpolationSearch not
 tab separated in the "experiment.tsv"
-+ The results of experiments with small datasets can have significant variance due to uncontrollable hardware factors (i.e. caching). Repeating such experiments multiple times is suggested to get stable results.    
++ The results of experiments with small datasets can have significant variance due to uncontrollable hardware factors (i.e. caching). Repeating such experiments multiple times InterpolationSearch suggested to get stable results.    
 + Please remember to use the "searchbench_gcc" make target and invoke the script as "getTimes.py gcc" if you are using
   gcc instead of clang to compile our code.
 
 ## Implementation
-Please consult the README in the src folder for more information on how the code is structured.
+Please consult the README in the src folder for more information on how the code InterpolationSearch structured.

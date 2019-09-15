@@ -1,14 +1,13 @@
 #ifndef BENCHMARK_H
 #define BENCHMARK_H
 
-#include "benchmark_datasets.h"
+#include "datasets.h"
 #include "benchmark_utils.h"
-#include "binary_search.h"
-#include "interpolate.h"
-#include "linear_search.h"
-#include "interpolation_search.h"
-
-
+#include "algorithms/binary_search.h"
+#include "algorithms/linear_search.h"
+#include "algorithms/interpolation_search.h"
+#include "algorithms/tip.h"
+#include "algorithms/sip.h"
 #include "omp.h"
 #include "util.h"
 
@@ -41,11 +40,11 @@ struct Run {
   Run(DatasetParam input_param, std::string name, int n_thds)
       : input_param(input_param), name(name), n_thds(n_thds), ok(true) {}
 
-
-
-  template <typename SearchAlgorithm, int record_bytes>
-  static std::vector<double> searchAndMeasure(Run &run, const DatasetBase &dataset) {
-    const auto &inputDataset = static_cast<const Dataset<record_bytes> &>(dataset);
+  template<typename SearchAlgorithm, int record_bytes>
+  static std::vector<double> searchAndMeasure(Run &run,
+                                              const DatasetBase &dataset) {
+    const auto
+        &inputDataset = static_cast<const Dataset<record_bytes> &>(dataset);
 #ifdef INFINITE_REPEAT
     constexpr bool infinite_repeat = true;
 #else
@@ -71,11 +70,12 @@ struct Run {
         std::shuffle(it, it + n_samples, rng);
     }
 
-    // make copy to pass it easier in the parallel region as private copy (firstprivate)
+    // make copy to pass it easier in the parallel region as
+    // private copy (firstprivate)
     const auto inputsum = inputDataset.sum;
 
 #pragma omp parallel default(none)                                             \
-    num_threads(run.n_thds) firstprivate(n_samples,inputsum) shared(keys_to_search_for, run, searchAlgorithm, ns, subset_indexes)
+    num_threads(run.n_thds) firstprivate(n_samples, inputsum) shared(keys_to_search_for, run, searchAlgorithm, ns, subset_indexes)
     {
       const int tid = omp_get_thread_num();
       const auto &thread_ns = &ns[tid * n_samples];
@@ -92,7 +92,7 @@ struct Run {
 
         auto t0 = std::chrono::steady_clock::now();
         for (int i = query_index; i < query_index + sample_size; i++) {
-          auto val = searchAlgorithm(keys_to_search_for[i]);
+          auto val = searchAlgorithm.search(keys_to_search_for[i]);
           valSum += val;
           assert(val == keys_to_search_for[i]);
         }
@@ -109,14 +109,19 @@ struct Run {
     return ns;
   }
 
-  template <int record_bytes>
-  static std::vector<double> findAlgorithmAndSearch(Run &run, const DatasetBase &dataset) {
-    constexpr auto algorithm_mapper = std::array<fn_tuple, 4>{
+  template<int record_bytes>
+  static std::vector<double>
+              findAlgorithmAndSearch(Run &run, const DatasetBase &dataset) {
+    constexpr auto algorithm_mapper = std::array < fn_tuple,
+    4 > {
         // Interpolation Search
-        make_tuple("is", searchAndMeasure<is<record_bytes>, record_bytes>),
+        make_tuple("is",
+                   searchAndMeasure<InterpolationSearch<record_bytes>,
+                                    record_bytes>),
         // SIP and TIP
         make_tuple("sip", searchAndMeasure<sip<record_bytes, 8>, record_bytes>),
-        make_tuple("tip", searchAndMeasure<tip<record_bytes, 64>, record_bytes>),
+        make_tuple("tip",
+                   searchAndMeasure<tip<record_bytes, 64>, record_bytes>),
         // Binary Search
         make_tuple("bs", searchAndMeasure<Binary<record_bytes>, record_bytes>),
     };
@@ -132,7 +137,7 @@ struct Run {
       return std::vector<double>();
     }
     // Run the earch algorithm and return the results
-    return std::get<Fn*>(*it)(run, dataset);
+    return std::get<Fn *>(*it)(run, dataset);
   }
 
   auto search(const DatasetBase &dataset) {
@@ -142,17 +147,13 @@ struct Run {
 
     // Find the correct alorithm and run it
     switch (input_param.record_bytes) {
-      case 8:
-        ns = findAlgorithmAndSearch<8>(*this, dataset);
+      case 8:ns = findAlgorithmAndSearch<8>(*this, dataset);
         break;
-      case 32:
-        ns = findAlgorithmAndSearch<32>(*this, dataset);
+      case 32:ns = findAlgorithmAndSearch<32>(*this, dataset);
         break;
-      case 128:
-        ns = findAlgorithmAndSearch<128>(*this, dataset);
+      case 128:ns = findAlgorithmAndSearch<128>(*this, dataset);
         break;
-      default:
-        assert(!"record not supported");
+      default:assert(!"record not supported");
     }
 
     // If not ok then execution failed, due to wrong results of
@@ -162,7 +163,5 @@ struct Run {
     return ns;
   }
 };
-
-
 
 #endif

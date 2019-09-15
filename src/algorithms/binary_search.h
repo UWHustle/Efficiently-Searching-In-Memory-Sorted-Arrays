@@ -5,8 +5,8 @@
 #include <cinttypes>
 
 #include "linear_search.h"
-#include "padded_vector.h"
-#include "util.h"
+#include "../padded_vector.h"
+#include "../util.h"
 
 #include <limits>
 
@@ -89,7 +89,7 @@ public:
     }
   }
 
-  __attribute__((always_inline)) Key operator()(const Key x) {
+  __attribute__((always_inline)) Key search(const Key x) {
     Index n = A.size();
     Index left = 0L;
     if (POW_2) {

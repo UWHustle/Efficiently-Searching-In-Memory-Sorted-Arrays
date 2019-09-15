@@ -12,7 +12,10 @@ else
 	LDFLAGS=-fopenmp
 endif
 
-HEADERS=src/benchmark.h src/benchmark_datasets.h src/benchmark_utils.h src/binary_search.h src/padded_vector.h src/interpolate.h src/util.h src/div.h src/linear_search.h src/sip.h src/tip.h
+HEADERS=src/benchmark.h src/datasets.h src/benchmark_utils.h \
+		src/algorithms/binary_search.h src/padded_vector.h \
+		src/util.h src/algorithms/div.h src/algorithms/linear_search.h \
+		src/algorithms/sip.h src/algorithms/tip.h
 SOURCES=src/benchmark.cc
 
 .PHONY: run gdb clean perf

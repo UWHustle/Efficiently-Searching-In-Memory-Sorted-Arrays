@@ -1,5 +1,5 @@
 #include "benchmark.h"
-#include "benchmark_datasets.h"
+#include "datasets.h"
 #include "benchmark_utils.h"
 #include "util.h"
 

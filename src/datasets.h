@@ -40,7 +40,8 @@ struct DatasetParam {
 };
 
 struct DatasetBase {
-  using DatasetMap = std::map<DatasetParam::Tuple, std::unique_ptr<DatasetBase>>;
+  using DatasetMap =
+                std::map<DatasetParam::Tuple, std::unique_ptr<DatasetBase>>;
 };
 
 

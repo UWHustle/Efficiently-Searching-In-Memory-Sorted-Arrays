@@ -2,7 +2,7 @@
 #define BENCHMARK_UTILS_H
 
 #include "benchmark.h"
-#include "benchmark_datasets.h"
+#include "datasets.h"
 
 #include <algorithm>
 #include <chrono>
@@ -86,7 +86,8 @@ static auto loadRunsFromFile(std::ifstream &&file) {
   return runs;
 }
 
-static void createDataset(DatasetParam input_param, DatasetBase::DatasetMap& input_map) {
+static void createDataset(DatasetParam input_param,
+                          DatasetBase::DatasetMap& input_map) {
   // The dataset does not exist
   if (input_map.count(input_param) == 0) {
       std::cerr << "Creating Dataset -> size:" << input_param.n
