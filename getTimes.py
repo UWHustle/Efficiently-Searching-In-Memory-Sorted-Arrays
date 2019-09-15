@@ -1,19 +1,23 @@
 #!/usr/bin/env python
 
+from os import path
 from os import popen
 from subprocess import call
 from pandas import read_csv
 import sys
 import subprocess
-from subprocess import DEVNULL 
+from subprocess import DEVNULL
 
-maketarget=""
+# maketarget=""
+# if len(sys.argv) > 1:
+#   if sys.argv[1] == "gcc":
+#     maketarget="_gcc"
+# call(['make', 'searchbench'+maketarget])
 
-if len(sys.argv) > 1:
-  if sys.argv[1] == "gcc":
-    maketarget="_gcc"
+if not path.exists("./searchbench"):
+    print("Please compile the searchbench before using this script.\n")
+    exit()
 
-call(['make', 'searchbench'+maketarget])
 run_param = ['Run','DatasetSize','Distribution','Parameter','#threads','SearchAlgorithm','RecordSizeBytes']
 
 with open("outfile", "w") as log_file:
