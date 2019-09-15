@@ -1,6 +1,6 @@
 DatasetSize	Distribution	Parameter	SearchAlgorithm	RecordSizeBytes	#threads
-100000	uniform	42	InterpolationSearch	8	1
-100000	uniform	42	sip	8	1
+10000000	uniform	42	InterpolationSearch	8	1
+10000000	uniform	42	sip	8	1
 100000	uniform	42	bs	8	1
 100000	fal	1.05	tip	32	1
 100000	fal	1.05	bs	32	1

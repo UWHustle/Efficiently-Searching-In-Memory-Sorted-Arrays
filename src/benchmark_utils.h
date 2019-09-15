@@ -75,40 +75,40 @@ static auto loadRunsFromFile(std::ifstream &&file) {
     if (!file.good())
       break;
     assert(fields.size() == header.size());
-    DatasetParam input_param{.distribution = fields[header["Distribution"]],
+    DatasetParam dataset_param{.distribution = fields[header["Distribution"]],
         .param = fields[header["Parameter"]],
         .n = parse2<long>(fields[header["DatasetSize"]]),
         .record_bytes =
         parse2<int>(fields[header["RecordSizeBytes"]])};
-    runs.emplace_back(input_param, fields[header["SearchAlgorithm"]],
+    runs.emplace_back(dataset_param, fields[header["SearchAlgorithm"]],
                       parse2<int>(fields[header["#threads"]]));
   }
   return runs;
 }
 
-static void createDataset(DatasetParam input_param,
+static void createDataset(DatasetParam dataset_param,
                           DatasetBase::DatasetMap& input_map) {
   // The dataset does not exist
-  if (input_map.count(input_param) == 0) {
-      std::cerr << "Creating Dataset -> size:" << input_param.n
-                << ", distribution: " << input_param.distribution
-                << ", distribution parameter: " << input_param.param << '\n';
+  if (input_map.count(dataset_param) == 0) {
+      std::cerr << "Creating Dataset -> size:" << dataset_param.n
+                << ", distribution: " << dataset_param.distribution
+                << ", distribution parameter: " << dataset_param.param << '\n';
 
-      auto dataset_params = split(input_param.param);
-    input_map.emplace((DatasetParam::Tuple)input_param, [=]() {
-        switch (input_param.record_bytes) {
+      auto dataset_params = split(dataset_param.param);
+    input_map.emplace((DatasetParam::Tuple)dataset_param, [=]() {
+        switch (dataset_param.record_bytes) {
           case 8:
               return static_cast<std::unique_ptr<DatasetBase>>(
                   std::make_unique<Dataset<8>>(
-                      input_param.n, input_param.distribution, dataset_params));
+                      dataset_param.n, dataset_param.distribution, dataset_params));
           case 32:
               return static_cast<std::unique_ptr<DatasetBase>>(
                   std::make_unique<Dataset<32>>(
-                      input_param.n, input_param.distribution, dataset_params));
+                      dataset_param.n, dataset_param.distribution, dataset_params));
           case 128:
               return static_cast<std::unique_ptr<DatasetBase>>(
                   std::make_unique<Dataset<128>>(
-                      input_param.n, input_param.distribution, dataset_params));
+                      dataset_param.n, dataset_param.distribution, dataset_params));
           default:
             assert(!"record size not supported");
         };

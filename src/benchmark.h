@@ -32,13 +32,13 @@ using fn_tuple = std::tuple<const char *, Fn *>;
 using std::make_tuple;
 
 struct Run {
-  DatasetParam input_param;
+  DatasetParam dataset_param;
   std::string name;
   int n_thds;
   bool ok;
 
-  Run(DatasetParam input_param, std::string name, int n_thds)
-      : input_param(input_param), name(name), n_thds(n_thds), ok(true) {}
+  Run(DatasetParam dataset_param, std::string name, int n_thds)
+      : dataset_param(dataset_param), name(name), n_thds(n_thds), ok(true) {}
 
   template<typename SearchAlgorithm, int record_bytes>
   static std::vector<double> searchAndMeasure(Run &run,
@@ -141,12 +141,12 @@ struct Run {
   }
 
   auto search(const DatasetBase &dataset) {
-    auto[n, distribution, param, record_bytes] = input_param;
+    auto[n, distribution, param, record_bytes] = dataset_param;
     // Stores the times to search each 1000 record subset
     std::vector<double> ns;
 
     // Find the correct alorithm and run it
-    switch (input_param.record_bytes) {
+    switch (dataset_param.record_bytes) {
       case 8:ns = findAlgorithmAndSearch<8>(*this, dataset);
         break;
       case 32:ns = findAlgorithmAndSearch<32>(*this, dataset);
