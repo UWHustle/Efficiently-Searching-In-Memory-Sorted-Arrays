@@ -1,4 +1,6 @@
 #include "benchmark.h"
+#include "datasets.h"
+#include "benchmark_utils.h"
 #include "util.h"
 
 #include <algorithm>
@@ -23,25 +25,31 @@
 // Takes one argument, a tsv file with the specification of the experiment to
 // run.
 int main(int argc, char *argv[]) {
-  using RunTuple = std::tuple<InputParam::Tuple, std::string, int>;
+  using RunTuple = std::tuple<DatasetParam::Tuple, std::string, int>;
 
-  std::vector<Run> runs = Run::load(std::ifstream(argv[1]));
-  auto inputs = InputBase::load(runs);
+  // Load the experiment specification from the Dataset file
+  std::vector<Run> runs = loadRunsFromFile(std::ifstream(argv[1]));
+
+  // create the Dataset needed by the experiments
+  DatasetBase::DatasetMap datasets_map;
+  for (Run r : runs){
+    createDataset(r.dataset_param, datasets_map);
+  }
+
+  // Run the experiments
   bool first = true;
   int run_ix = 0;
 
   RunTuple old_param;
   auto t0 = std::chrono::steady_clock::now();
   for (auto &run : runs) {
-    auto[distribution, param, n, record_bytes] = run.input_param;
-    RunTuple new_param{run.input_param, run.name, run.n_thds};
-    auto t1 = std::chrono::steady_clock::now();
+    auto[distribution, param, n, record_bytes] = run.dataset_param;
+    RunTuple new_param{run.dataset_param, run.name, run.n_thds};
     if (new_param != old_param) {
       std::cerr << "Running experiment: ";
       std::cerr << n << ' ' << distribution << ' ' << param << ' '
                 << record_bytes << ' ' << run.name << ' ' << run.n_thds << '\n';
       old_param = new_param;
-      t0 = t1;
       if (run_ix == 0) {
         std::cout << std::setw(3) << "Run\t" << std::setw(11) << "DatasetSize\t"
                   << std::setw(12) << "Distribution\t" << std::setw(10)
@@ -57,13 +65,12 @@ int main(int argc, char *argv[]) {
                   << "RecordSizeBytes\t" << std::setw(6) << "TimeNS\t"
                   << "\n";
       }
-    } else if (std::chrono::duration<double, std::milli>(t1 - t0).count() >
-               1000.0) {
-      std::cerr << '.';
-      t0 = t1;
     }
 
-    for (auto ns : run(*inputs.at(run.input_param))) {
+    // Run the experiment using the run specification and the corresponding
+    // dataset. Each experiments measures the time to search subsets of
+    // 1000 keys.
+    for (auto ns : run.search(*datasets_map.at(run.dataset_param))) {
       if (!run.ok) {
         break;
       }

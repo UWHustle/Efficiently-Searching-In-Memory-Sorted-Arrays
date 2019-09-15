@@ -14,7 +14,7 @@ template <int record_bytes = 128, int pad = 32> class PaddedVector {
     Record() {}
     Record(Key k) : k(k) {}
     bool operator<(const Record &r) const { return k < r.k; }
-    operator Key() const { return k; }
+    operator Key () const { return k; }
   };
 
   std::vector<Record> v;
