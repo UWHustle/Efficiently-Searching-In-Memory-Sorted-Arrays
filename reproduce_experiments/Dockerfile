@@ -10,4 +10,5 @@ RUN make
 WORKDIR ./reproduce_experiments
 
 EXPOSE 8899
-ENTRYPOINT /bin/bash ./start_notebook.sh
+ADD start_notebook_docker_DONT_USE.sh start_notebook_docker.sh
+ENTRYPOINT /bin/bash start_notebook_docker.sh

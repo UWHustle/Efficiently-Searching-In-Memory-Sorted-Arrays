@@ -2,9 +2,10 @@ clang5
 outfile
 searchbench
 dump
-reproduce_experiments/*.tsv
-reproduce_experiments/*.tsv.out
+reproduce_experiments/results/*.tsv
+reproduce_experiments/results/*.tsv.out
 reproduce_experiments/.DS_Store
+reproduce_experiments/results/.DS_Store
 
 .DS_Store
 .ipynb_checkpoints/
