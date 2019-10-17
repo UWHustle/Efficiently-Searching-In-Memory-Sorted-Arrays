@@ -7,7 +7,8 @@ reproduce_experiments/results/*.tsv.out
 reproduce_experiments/.DS_Store
 reproduce_experiments/results/.DS_Store
 reproduce_experiments/Reproducibility.html
-reproduce_experiments/figures
+reproduce_experiments/figures/*.pdf
+
 .DS_Store
 .ipynb_checkpoints/
 reproduce_experiments/.ipynb_checkpoints/
