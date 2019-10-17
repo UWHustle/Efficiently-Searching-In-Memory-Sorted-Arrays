@@ -2,13 +2,13 @@ clang5
 outfile
 searchbench
 dump
-replicate_experiments/*.tsv
-replicate_experiments/*.tsv.out
-replicate_experiments/.DS_Store
+reproduce_experiments/*.tsv
+reproduce_experiments/*.tsv.out
+reproduce_experiments/.DS_Store
 
 .DS_Store
 .ipynb_checkpoints/
-replicate_experiments/.ipynb_checkpoints/
+reproduce_experiments/.ipynb_checkpoints/
 # Prerequisites
 *.d
 
