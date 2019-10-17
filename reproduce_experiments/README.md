@@ -49,7 +49,7 @@ You can start the notebook by running:
 ./run_docker.sh
 ```
 When the container is built and started you will see on your terminal the address for accessing the notebook running on the container
-from your host system's browser.B y executing all the cells of the notebook you will be able to see the figures in your browser.
+from your host system's browser. By executing all the cells of the notebook you will be able to see the figures in your browser.
 You can use the script:
 ```bash
 ./copy_results_from_docker.sh
