@@ -10,5 +10,6 @@ RUN make
 WORKDIR ./reproduce_experiments
 
 EXPOSE 8899
-ADD internal_docker_DONT_USE.sh start_notebook_docker.sh
-ENTRYPOINT /bin/bash start_notebook_docker.sh
+ADD internal_docker_without_gui_DONT_USE.sh run_without_gui.sh
+ENTRYPOINT /bin/bash run_without_gui.sh
+

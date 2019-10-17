@@ -8,6 +8,7 @@ reproduce_experiments/.DS_Store
 reproduce_experiments/results/.DS_Store
 reproduce_experiments/Reproducibility.html
 reproduce_experiments/figures/*.pdf
+reproduce_experiments/figures_from_docker
 
 .DS_Store
 .ipynb_checkpoints/
