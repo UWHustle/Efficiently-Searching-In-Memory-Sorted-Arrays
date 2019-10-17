@@ -8,11 +8,9 @@ import sys
 import subprocess
 from subprocess import DEVNULL
 
-# maketarget=""
-# if len(sys.argv) > 1:
-#   if sys.argv[1] == "gcc":
-#     maketarget="_gcc"
-# call(['make', 'searchbench'+maketarget])
+tsv="experiments.tsv"
+if len(sys.argv) > 1:
+        tsv=sys.argv[1]
 
 if not path.exists("./searchbench"):
     print("Please compile the searchbench before using this script.\n")
@@ -21,7 +19,7 @@ if not path.exists("./searchbench"):
 run_param = ['Run','DatasetSize','Distribution','Parameter','#threads','SearchAlgorithm','RecordSizeBytes']
 
 with open("outfile", "w") as log_file:
-    subprocess.run(["./searchbench","experiments.tsv"], stdout=log_file, stderr=DEVNULL)
+    subprocess.run(["./searchbench", tsv], stdout=log_file, stderr=DEVNULL)
 
 df = read_csv("outfile", sep='\t')
 
