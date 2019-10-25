@@ -1,1 +1,1 @@
-jupyter notebook
+jupyter notebook --port=8899

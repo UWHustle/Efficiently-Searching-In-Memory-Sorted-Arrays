@@ -1,0 +1,3 @@
+reduced
+# To run the full experiments please change the first line of this file to
+# "full". Otherwise set the first line to "reduced".
