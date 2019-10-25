@@ -6,6 +6,7 @@
 #include "algorithms/binary_search.h"
 #include "algorithms/linear_search.h"
 #include "algorithms/interpolation_search.h"
+#include "algorithms/interpolation_search_sequential.h"
 #include "algorithms/tip.h"
 #include "algorithms/sip.h"
 #include "omp.h"
@@ -114,11 +115,12 @@ struct Run {
   static std::vector<double>
               findAlgorithmAndSearch(Run &run, const DatasetBase &dataset) {
     constexpr auto algorithm_mapper = std::array < fn_tuple,
-    4 > {
+    5 > {
         // Interpolation Search
         make_tuple("is",
                    searchAndMeasure<InterpolationSearch<record_bytes>,
                                     record_bytes>),
+        make_tuple("isseq", searchAndMeasure<is_seq<record_bytes>, record_bytes>),
         // SIP and TIP
         make_tuple("sip", searchAndMeasure<sip<record_bytes, 8>, record_bytes>),
         make_tuple("tip",

@@ -3,7 +3,7 @@
 from os import path
 from os import popen
 from subprocess import call
-from pandas import read_csv
+from pandas import read_csv, set_option
 import sys
 import subprocess
 from subprocess import DEVNULL
@@ -24,6 +24,7 @@ with open("outfile", "w") as log_file:
 df = read_csv("outfile", sep='\t')
 
 print("\nTime to search one record:")
+set_option('display.max_rows', len(df))
 print(df.groupby(run_param)['TimeNS'].mean())
 
 call(['rm', 'outfile'])
