@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
+
+rm ./experiments_configurations/.tsv
 rm ./experiments_results/*.results
-rm ./figures/*.pdf
+rm ./figures/*.pdfes/*.pdf

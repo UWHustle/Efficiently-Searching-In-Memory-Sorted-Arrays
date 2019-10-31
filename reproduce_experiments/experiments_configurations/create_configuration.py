@@ -110,10 +110,10 @@ def figure10(tsvname):
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
 
-    datasetSizes = [3,4,5,6]
     for algorithm in ["sip", "isseq"]:
-        for datasetSize in datasetSizes:
-            utils.fbids_to_tsv(tsv, algorithm, 32, 1)
+            utils.fbids1k_to_tsv(tsv, algorithm, 32, 1)
+            utils.fbids10k_to_tsv(tsv, algorithm, 32, 1)
+            utils.fbids100k_to_tsv(tsv, algorithm, 32, 1)
 
 def figure11(tsvname):
     tsv = tsvname + ".tsv"

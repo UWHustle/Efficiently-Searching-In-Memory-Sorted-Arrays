@@ -54,6 +54,22 @@ def fbids_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
                searchAlgo,
                recordSizeBytes, nThreads)
 
+def fbids1k_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
+    add_to_tsv(tsvpath, 10 ** 5, "file", "src/datasets/fb/fb-1000.txt",
+               searchAlgo,
+               recordSizeBytes, nThreads)
+
+
+def fbids10k_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
+    add_to_tsv(tsvpath, 10 ** 5, "file", "src/datasets/fb/fb-10000.txt",
+               searchAlgo,
+               recordSizeBytes, nThreads)
+
+def fbids100k_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
+    add_to_tsv(tsvpath, 10 ** 5, "file", "src/datasets/fb/fb-100000.txt",
+               searchAlgo,
+               recordSizeBytes, nThreads)
+
 
 def freq1_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
     add_to_tsv(tsvpath, 10 ** 6, "file", "src/datasets/wf/wiki.txt", searchAlgo,
