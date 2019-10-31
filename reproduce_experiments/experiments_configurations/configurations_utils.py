@@ -55,13 +55,13 @@ def fbids_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
                recordSizeBytes, nThreads)
 
 def fbids1k_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
-    add_to_tsv(tsvpath, 10 ** 5, "file", "src/datasets/fb/fb-1000.txt",
+    add_to_tsv(tsvpath, 10 ** 3, "file", "src/datasets/fb/fb-1000.txt",
                searchAlgo,
                recordSizeBytes, nThreads)
 
 
 def fbids10k_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
-    add_to_tsv(tsvpath, 10 ** 5, "file", "src/datasets/fb/fb-10000.txt",
+    add_to_tsv(tsvpath, 10 ** 4, "file", "src/datasets/fb/fb-10000.txt",
                searchAlgo,
                recordSizeBytes, nThreads)
 
