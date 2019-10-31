@@ -7,6 +7,7 @@ from pandas import read_csv, set_option
 import sys
 import subprocess
 from subprocess import DEVNULL
+import pandas as pd
 
 tsv="experiments.tsv"
 if len(sys.argv) > 1:
@@ -25,7 +26,7 @@ df = read_csv("outfile", sep='\t')
 
 print("\nTime to search one record:")
 set_option('display.max_rows', len(df))
-print(df.groupby(run_param)['TimeNS'].mean())
+print(df.groupby(run_param, sort=False)['TimeNS'].mean())
 
 call(['rm', 'outfile'])
 
