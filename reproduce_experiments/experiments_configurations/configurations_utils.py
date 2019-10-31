@@ -2,6 +2,10 @@
 # our benchmarking framework.
 from os import path, remove
 
+repeat_times = {10 ** 3: 10000, 10 ** 4: 1000, 10 ** 5: 1000, 10 ** 6: 5,
+                10 ** 7: 5, 10 ** 8: 1, 10 ** 9: 1}
+
+
 def validate_args(datasetSize, distribution, parameter, searchAlgo,
                   recordSizeBytes, nThreads):
     if recordSizeBytes not in [8, 32, 128]:
@@ -34,7 +38,10 @@ def add_to_tsv(tsvpath, datasetSize, distribution, parameter, searchAlgo,
                str(searchAlgo) + "\t" + \
                str(recordSizeBytes) + "\t" + \
                str(nThreads) + "\n"
-        f.write(conf)
+        times = repeat_times[datasetSize]
+        for i in range(0, times):
+            f.write(conf)
+
 
 def UaR_to_tsv(tsvpath, datasetSize, searchAlgo, recordSizeBytes, nThreads,
                parameter=42):
@@ -43,17 +50,19 @@ def UaR_to_tsv(tsvpath, datasetSize, searchAlgo, recordSizeBytes, nThreads,
 
 
 def fbids_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
-    add_to_tsv(tsvpath, 1, "file", "src/datasets/fb/fb-289000.txt", searchAlgo,
+    add_to_tsv(tsvpath, 10 ** 5, "file", "src/datasets/fb/fb-289000.txt",
+               searchAlgo,
                recordSizeBytes, nThreads)
 
 
 def freq1_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
-    add_to_tsv(tsvpath, 1, "file", "src/datasets/wf/wiki.txt", searchAlgo,
+    add_to_tsv(tsvpath, 10 ** 6, "file", "src/datasets/wf/wiki.txt", searchAlgo,
                recordSizeBytes, nThreads)
 
 
 def freq2_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
-    add_to_tsv(tsvpath, 1, "file", "src/datasets/wf/newman.txt", searchAlgo,
+    add_to_tsv(tsvpath, 10 ** 5, "file", "src/datasets/wf/newman.txt",
+               searchAlgo,
                recordSizeBytes, nThreads)
 
 
@@ -74,6 +83,7 @@ def gap_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads, random_seed,
     add_to_tsv(tsvpath, datasetSize, "gap", str(random_seed) + "," + str(shape),
                searchAlgo, recordSizeBytes, nThreads)
 
+
 def rm_tsv(tsvpath):
-    if path.exists("./"+tsvpath):
-        remove("./"+tsvpath)
+    if path.exists("./experiments_configurations/" + tsvpath):
+        remove("./experiments_configurations/" + tsvpath)

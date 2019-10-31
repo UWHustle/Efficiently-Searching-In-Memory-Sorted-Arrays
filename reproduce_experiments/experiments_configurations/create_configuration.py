@@ -39,7 +39,7 @@ def figure6(tsvname):
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
 
-    datasetSizes=[3,4,5,6,7]#,8,9]
+    datasetSizes=[3,4,5,6,7]
     if fullConfiguration():
         datasetSizes=[3,4,5,6,7,8,9]
 
@@ -53,7 +53,7 @@ def figure7(tsvname):
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
 
-    datasetSizes=[3,4,5,6,7]#,8,9]
+    datasetSizes=[3,4,5,6,7]
     if fullConfiguration():
         datasetSizes=[3,4,5,6,7,8,9]
 
@@ -75,34 +75,22 @@ def figure8(tsvname):
         for gapShape in [0.7,0.9,0.99,0.99999]:
             for datasetSize in datasetSizes:
                 utils.gap_to_tsv(tsv8, algorithm, 8, 1, 47,gapShape, 10**datasetSize)
-                utils.gap_to_tsv(tsv8, algorithm, 8, 1, 47,gapShape, 10**datasetSize)
-                utils.gap_to_tsv(tsv8, algorithm, 8, 1, 47,gapShape, 10**datasetSize)
-                utils.gap_to_tsv(tsv8, algorithm, 8, 1, 47,gapShape, 10**datasetSize)
 
     for algorithm in ["sip", "isseq"]:
         for gapShape in [0.7,0.9,0.99,0.99999]:
             for datasetSize in datasetSizes:
-                utils.gap_to_tsv(tsv32, algorithm, 32, 1, 47,gapShape, 10**datasetSize)
-                utils.gap_to_tsv(tsv32, algorithm, 32, 1, 47,gapShape, 10**datasetSize)
-                utils.gap_to_tsv(tsv32, algorithm, 32, 1, 47,gapShape, 10**datasetSize)
                 utils.gap_to_tsv(tsv32, algorithm, 32, 1, 47,gapShape, 10**datasetSize)
 
     for algorithm in ["sip", "isseq"]:
         for gapShape in [0.7,0.9,0.99,0.9999]:
             for datasetSize in datasetSizes:
                 utils.gap_to_tsv(tsv128, algorithm, 128, 1, 47,gapShape, 10**datasetSize)
-                utils.gap_to_tsv(tsv128, algorithm, 128, 1, 47,gapShape, 10**datasetSize)
-                utils.gap_to_tsv(tsv128, algorithm, 128, 1, 47,gapShape, 10**datasetSize)
-                utils.gap_to_tsv(tsv128, algorithm, 128, 1, 47,gapShape, 10**datasetSize)
 
 def figure9(tsvname):
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
 
-    tsv_caches="fig9_cache.tsv"
-
-    # Less dataset sizes allow the experiments to finish faster
-    datasetSizes=[3,4,5,6,7]#,8,9]
+    datasetSizes=[3,4,5,6,7]
     if fullConfiguration():
         datasetSizes=[3,4,5,6,7,8,9]
 
@@ -110,19 +98,11 @@ def figure9(tsvname):
     for algorithm in ["bs", "tip"]:
         for datasetSize in datasetSizes:
             for shape in shapes:
-                #cache warm up
-                utils.fal_to_tsv(tsv, algorithm, 8, 1, shape, 10**datasetSize)
-                utils.fal_to_tsv(tsv, algorithm, 8, 1, shape, 10**datasetSize)
-                #actual experiment
                 utils.fal_to_tsv(tsv, algorithm, 8, 1, shape, 10**datasetSize)
 
     for algorithm in ["bs", "tip"]:
         for datasetSize in datasetSizes:
             for shape in shapes:
-                #cache warm up
-                utils.cfal_to_tsv(tsv, algorithm, 8, 1, shape, 10**datasetSize)
-                utils.cfal_to_tsv(tsv, algorithm, 8, 1, shape, 10**datasetSize)
-                #actual experiment
                 utils.cfal_to_tsv(tsv, algorithm, 8, 1, shape, 10**datasetSize)
 
 
@@ -134,9 +114,6 @@ def figure10(tsvname):
     for algorithm in ["sip", "isseq"]:
         for datasetSize in datasetSizes:
             utils.fbids_to_tsv(tsv, algorithm, 32, 1)
-            utils.fbids_to_tsv(tsv, algorithm, 32, 1)
-            utils.fbids_to_tsv(tsv, algorithm, 32, 1)
-            utils.fbids_to_tsv(tsv, algorithm, 32, 1)
 
 def figure11(tsvname):
     tsv = tsvname + ".tsv"
@@ -145,13 +122,9 @@ def figure11(tsvname):
     for algorithm in ["tip", "bs"]:
         for recordSize in [8,32,128]:
             utils.freq1_to_tsv(tsv, algorithm, recordSize, 1)
-            utils.freq1_to_tsv(tsv, algorithm, recordSize, 1)
-            utils.freq1_to_tsv(tsv, algorithm, recordSize, 1)
 
     for algorithm in ["tip", "bs"]:
         for recordSize in [8,32,128]:
-            utils.freq2_to_tsv(tsv, algorithm, recordSize, 1)
-            utils.freq2_to_tsv(tsv, algorithm, recordSize, 1)
             utils.freq2_to_tsv(tsv, algorithm, recordSize, 1)
 
 

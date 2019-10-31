@@ -23,7 +23,7 @@ def run(tsvname):
                     "If you want to rerun the experiments please delete the file: " + tsvname + ".results")
     else:
         with open(resultFile, "w") as log_file:
-            subprocess.run(["python3", "./getTimes.py",
+            subprocess.run(["python3", "./getTimesRepro.py",
                             "./reproduce_experiments/experiments_configurations/" + tsvname],
                            stdout=log_file, stderr=DEVNULL, cwd="../")
 
