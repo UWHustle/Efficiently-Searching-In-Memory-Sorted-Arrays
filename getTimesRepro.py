@@ -22,7 +22,7 @@ run_param = ['DatasetSize','Distribution','Parameter','#threads','SearchAlgorith
 with open("outfile", "w") as log_file:
     subprocess.run(["./searchbench", tsv], stdout=log_file, stderr=DEVNULL)
 
-df = read_csv("outfile", sep='\t')
+df = read_csv("outfile", engine='python', sep = "\s+|\t+|\s+\t+|\t+\s+")
 
 print("\nTime to search one record:")
 set_option('display.max_rows', len(df))

@@ -15,6 +15,10 @@ def run(tsvname):
             "Please make sure searchbench is compiled. You can compile this by running make on the parent directory.")
         sys.exit()
 
+    if not path.exists("experiments_configurations/" + tsvname):
+        print("The configuration file does not exist: "+tsvname)
+        sys.exit()
+
     resultFile = "experiments_results/" + tsvname + ".results"
     if path.exists(resultFile):
         print(
