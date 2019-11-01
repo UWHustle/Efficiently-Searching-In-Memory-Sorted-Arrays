@@ -2,4 +2,4 @@
 
 rm -f ./experiments_configurations/*.tsv
 rm -f ./experiments_results/*.results
-rm -f ./figures/*.pdfes/*.pdf
+rm -f ./figures/*.pdf
