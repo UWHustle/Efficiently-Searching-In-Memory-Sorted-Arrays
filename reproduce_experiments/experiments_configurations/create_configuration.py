@@ -46,6 +46,8 @@ def figure6(tsvname):
     for algorithm in ["bs", "sip"]:
         for datasetSize in datasetSizes:
             for recordSize in [8,32,128]:
+                if recordSize == 128 and datasetSize == 9:
+                    continue
                 utils.UaR_to_tsv(tsv, 10**datasetSize, algorithm, recordSize, 1)
 
 
@@ -87,7 +89,8 @@ def figure8(tsvname):
                 utils.gap_to_tsv(tsv128, algorithm, 128, 1, 47,gapShape, 10**datasetSize)
 
 def figure9(tsvname):
-    tsv = tsvname + ".tsv"
+    tsvfal = tsvname + "_fal.tsv"
+    tsvcfal = tsvname + "_fal.tsv"
     utils.rm_tsv(tsv)
 
     datasetSizes=[3,4,5,6,7]
@@ -98,12 +101,12 @@ def figure9(tsvname):
     for algorithm in ["bs", "tip"]:
         for datasetSize in datasetSizes:
             for shape in shapes:
-                utils.fal_to_tsv(tsv, algorithm, 8, 1, shape, 10**datasetSize)
+                utils.fal_to_tsv(tsvfal, algorithm, 8, 1, shape, 10**datasetSize)
 
     for algorithm in ["bs", "tip"]:
         for datasetSize in datasetSizes:
             for shape in shapes:
-                utils.cfal_to_tsv(tsv, algorithm, 8, 1, shape, 10**datasetSize)
+                utils.cfal_to_tsv(tsvcfal, algorithm, 8, 1, shape, 10**datasetSize)
 
 
 def figure10(tsvname):
