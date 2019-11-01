@@ -90,8 +90,9 @@ def figure8(tsvname):
 
 def figure9(tsvname):
     tsvfal = tsvname + "_fal.tsv"
-    tsvcfal = tsvname + "_fal.tsv"
-    utils.rm_tsv(tsv)
+    tsvcfal = tsvname + "_cfal.tsv"
+    utils.rm_tsv(tsvfal)
+    utils.rm_tsv(tsvcfal)
 
     datasetSizes=[3,4,5,6,7]
     if fullConfiguration():
