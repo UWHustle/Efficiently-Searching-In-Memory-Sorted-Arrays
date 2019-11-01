@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-rm ./experiments_configurations/*.tsv
-rm ./experiments_results/*.results
-rm ./figures/*.pdfes/*.pdf
+rm -f ./experiments_configurations/*.tsv
+rm -f ./experiments_results/*.results
+rm -f ./figures/*.pdfes/*.pdf
