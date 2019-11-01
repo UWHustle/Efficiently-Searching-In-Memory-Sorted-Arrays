@@ -16,7 +16,7 @@ def run(tsvname):
         sys.exit()
 
     if not path.exists("experiments_configurations/" + tsvname):
-        print("The configuration file does not exist: "+tsvname)
+        print("The configuration file does not exist: " + tsvname)
         sys.exit()
 
     resultFile = "experiments_results/" + tsvname + ".results"
@@ -24,10 +24,10 @@ def run(tsvname):
         print(
             "This tsv has been already executed and the results have been saved.")
         print(
-                    "If you want to rerun the experiments please delete the file: " + tsvname + ".results")
+                "If you want to rerun the experiments please delete the file: " + tsvname + ".results")
     else:
         with open(resultFile, "w") as log_file:
-            subprocess.run(["python3", "./getTimesRepro.py",
+            subprocess.run(["python3", "./getTimesReproducibility.py",
                             "./reproduce_experiments/experiments_configurations/" + tsvname],
                            stdout=log_file, stderr=DEVNULL, cwd="../")
 
