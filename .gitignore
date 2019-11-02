@@ -5,6 +5,7 @@ dump
 reproduce_experiments/experiments_results/*.results
 reproduce_experiments/experiments_configurations/*.tsv
 reproduce_experiments/figures/*.pdf
+reproduce_experiments/CreateFigures.html
 
 .DS_Store
 .ipynb_checkpoints/
