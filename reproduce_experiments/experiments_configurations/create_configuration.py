@@ -39,8 +39,12 @@ def figure5(tsvname):
 
 
 def figure6(tsvname):
-    tsv = tsvname + ".tsv"
-    utils.rm_tsv(tsv)
+    tsv8 = tsvname + "_8.tsv"
+    tsv32 = tsvname + "_32.tsv"
+    tsv128 = tsvname + "_128.tsv"
+    utils.rm_tsv(tsv8)
+    utils.rm_tsv(tsv32)
+    utils.rm_tsv(tsv128)
 
     datasetSizes = [3, 4, 5, 6, 7]
     if fullConfiguration():
@@ -48,11 +52,11 @@ def figure6(tsvname):
 
     for algorithm in ["bs", "sip"]:
         for datasetSize in datasetSizes:
-            for recordSize in [8, 32, 128]:
-                if recordSize == 128 and datasetSize == 9:
-                    continue
-                utils.UaR_to_tsv(tsv, 10 ** datasetSize, algorithm, recordSize,
-                                 1)
+            utils.UaR_to_tsv(tsv8, 10 ** datasetSize, algorithm, 8, 1)
+            utils.UaR_to_tsv(tsv32, 10 ** datasetSize, algorithm, 32, 1)
+            if datasetSize == 9:
+                continue
+            utils.UaR_to_tsv(tsv128, 10 ** datasetSize, algorithm, 128, 1)
 
 
 def figure7(tsvname):
