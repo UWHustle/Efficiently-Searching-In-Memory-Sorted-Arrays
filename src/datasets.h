@@ -126,8 +126,8 @@ template <int record_bytes> struct Dataset : public DatasetBase {
       auto seed = parse<long>(param[0]);
       fill(uniform(seed));
     } else if (distribution == "gap") {
-      auto[seed, sparsity] =
-      std::tuple{parse<long>(param[0]), parse<double>(param[1])};
+      auto seed = parse<long>(param[0]);
+      auto sparsity = parse<double>(param[1]);
       fill(gap(seed, sparsity));
     } else if (distribution == "fal") {
       auto shape = parse<double>(param[0]);
