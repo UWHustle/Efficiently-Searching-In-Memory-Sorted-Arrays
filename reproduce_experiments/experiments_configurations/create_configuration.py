@@ -9,6 +9,7 @@ def fullConfiguration():
 
 
 def figure2(tsvname):
+    print("Configuring experiment : " + tsvname)
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
 
@@ -39,6 +40,7 @@ def figure5(tsvname):
 
 
 def figure6(tsvname):
+    print("Configuring experiment : " + tsvname)
     tsv8 = tsvname + "_8.tsv"
     tsv32 = tsvname + "_32.tsv"
     tsv128 = tsvname + "_128.tsv"
@@ -60,6 +62,7 @@ def figure6(tsvname):
 
 
 def figure7(tsvname):
+    print("Configuring experiment : " + tsvname)
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
 
@@ -73,6 +76,7 @@ def figure7(tsvname):
 
 
 def figure8(tsvname):
+    print("Configuring experiment : " + tsvname)
     tsv1 = tsvname + "_1.tsv"
     tsv2 = tsvname + "_2.tsv"
     tsv3 = tsvname + "_3.tsv"
@@ -150,6 +154,7 @@ def figure8(tsvname):
 
 
 def figure9(tsvname):
+    print("Configuring experiment : " + tsvname)
     tsvfal = tsvname + "_fal.tsv"
     tsvcfal = tsvname + "_cfal.tsv"
     utils.rm_tsv(tsvfal)
@@ -174,6 +179,7 @@ def figure9(tsvname):
 
 
 def figure10(tsvname):
+    print("Configuring experiment : " + tsvname)
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
 
@@ -185,6 +191,7 @@ def figure10(tsvname):
 
 
 def figure11(tsvname):
+    print("Configuring experiment : " + tsvname)
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
 
