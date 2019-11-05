@@ -74,10 +74,10 @@ def figure7(tsvname):
 
 def figure8(tsvname):
     tsv1 = tsvname + "_1.tsv"
-    tsv1 = tsvname + "_2.tsv"
-    tsv1 = tsvname + "_3.tsv"
-    tsv1 = tsvname + "_4.tsv"
-    tsv1 = tsvname + "_5.tsv"
+    tsv2 = tsvname + "_2.tsv"
+    tsv3 = tsvname + "_3.tsv"
+    tsv4 = tsvname + "_4.tsv"
+    tsv5 = tsvname + "_5.tsv"
 
     utils.rm_tsv(tsv1)
     utils.rm_tsv(tsv2)
