@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-echo "\n\n\n\nInstalling necessary packages and compiling the benchmarking framework  ########################"
+echo $'\n\n########################  Installing necessary packages and compiling the benchmarking framework  ########################'
+
 # Install necessary packages needed by the benchmarking framework
 # and to produce the paper figures. Compile the benchmarking framework
 ./install.sh

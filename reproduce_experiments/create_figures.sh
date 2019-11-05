@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo "\n\n\n\n\nCreating figures  ########################"
+echo $'\n\n########################  Creating figures  ########################'
 jupyter nbconvert  --execute CreateFigures.ipynb
