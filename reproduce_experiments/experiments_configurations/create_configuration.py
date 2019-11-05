@@ -88,7 +88,7 @@ def figure8(tsvname):
     gapShapes = [0.7, 0.9, 0.99, 0.99999]
     datasetSizes = [3, 5, 6, 7]
     recordSizes = [8,32,128]
-    algorithms = ["sip", "isseq"]
+    algorithms = ["isseq", "sip"]
 
     for recordSize in recordSizes:
         for datasetSize in datasetSizes:
