@@ -90,8 +90,8 @@ def figure8(tsvname):
     utils.rm_tsv(tsv5)
 
     gapShapes = [0.7, 0.9, 0.99, 0.99999]
-    datasetSizes = [5, 6, 7, 8 , 9]
-    recordSizes = [8,32,128]
+    datasetSizes = [3,4, 5, 6, 7]
+    recordSizes = [8, 32, 128]
     algorithms = ["isseq", "sip"]
 
     for recordSize in recordSizes:
