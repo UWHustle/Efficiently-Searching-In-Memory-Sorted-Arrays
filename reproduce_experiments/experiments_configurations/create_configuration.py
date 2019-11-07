@@ -87,7 +87,7 @@ def figure8(tsvname):
     utils.rm_tsv(tsv3)
     utils.rm_tsv(tsv4)
 
-    gapShapes = [0.7, 0.9, 0.99, 0.99999]
+    gapShapes = [0.7, 0.9, 0.99, 0.9999]
     tsvNames = [tsv1, tsv2, tsv3, tsv4]
 
     datasetSizes = [3,4, 5, 6, 7]
