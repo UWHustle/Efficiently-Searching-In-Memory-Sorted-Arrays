@@ -81,77 +81,26 @@ def figure8(tsvname):
     tsv2 = tsvname + "_2.tsv"
     tsv3 = tsvname + "_3.tsv"
     tsv4 = tsvname + "_4.tsv"
-    tsv5 = tsvname + "_5.tsv"
 
     utils.rm_tsv(tsv1)
     utils.rm_tsv(tsv2)
     utils.rm_tsv(tsv3)
     utils.rm_tsv(tsv4)
-    utils.rm_tsv(tsv5)
 
     gapShapes = [0.7, 0.9, 0.99, 0.99999]
+    tsvNames = [tsv1, tsv2, tsv3, tsv4]
+
     datasetSizes = [3,4, 5, 6, 7]
     recordSizes = [8, 32, 128]
     algorithms = ["isseq", "sip"]
 
-    for recordSize in recordSizes:
-        for datasetSize in datasetSizes:
-                for algorithm in algorithms:
-                    utils.gap_to_tsv(tsv1, algorithm, recordSize, 1, 42, 0.7,
-                                 10 ** datasetSize)
-
-    for recordSize in recordSizes:
-        for datasetSize in datasetSizes:
-            for algorithm in algorithms:
-                utils.gap_to_tsv(tsv2, algorithm, recordSize, 1, 42, 0.8,
-                                 10 ** datasetSize)
-
-    for recordSize in recordSizes:
-        for datasetSize in datasetSizes:
-            for algorithm in algorithms:
-                utils.gap_to_tsv(tsv3, algorithm, recordSize, 1, 42, 0.9,
-                                 10 ** datasetSize)
-
-    for recordSize in recordSizes:
-        for datasetSize in datasetSizes:
-            for algorithm in algorithms:
-                utils.gap_to_tsv(tsv4, algorithm, recordSize, 1, 42, 0.99,
-                                 10 ** datasetSize)
-
-    for recordSize in recordSizes:
-        for datasetSize in datasetSizes:
-            for algorithm in algorithms:
-                utils.gap_to_tsv(tsv5, algorithm, recordSize, 1, 42, 0.9999,
-                                 10 ** datasetSize)
-
-
-# def figure8(tsvname):
-#     tsv8 = tsvname + "_8.tsv"
-#     tsv32 = tsvname + "_32.tsv"
-#     tsv128 = tsvname + "_128.tsv"
-#     utils.rm_tsv(tsv8)
-#     utils.rm_tsv(tsv32)
-#     utils.rm_tsv(tsv128)
-#
-#     datasetSizes = [3, 5, 6, 7]
-#     for algorithm in ["sip", "isseq"]:
-#         for gapShape in [0.7, 0.9, 0.99, 0.99999]:
-#             for datasetSize in datasetSizes:
-#                 utils.gap_to_tsv(tsv8, algorithm, 8, 1, 47, gapShape,
-#                                  10 ** datasetSize)
-#
-#     for algorithm in ["sip", "isseq"]:
-#         for gapShape in [0.7, 0.9, 0.99, 0.99999]:
-#             for datasetSize in datasetSizes:
-#                 utils.gap_to_tsv(tsv32, algorithm, 32, 1, 47, gapShape,
-#                                  10 ** datasetSize)
-#
-#     for algorithm in ["sip", "isseq"]:
-#         for gapShape in [0.7, 0.9, 0.99, 0.9999]:
-#             for datasetSize in datasetSizes:
-#                 utils.gap_to_tsv(tsv128, algorithm, 128, 1, 47, gapShape,
-#                                  10 ** datasetSize)
-
+    for i in range(0, len(gapShapes)):
+        for recordSize in recordSizes:
+            for datasetSize in datasetSizes:
+                    for algorithm in algorithms:
+                        utils.gap_to_tsv(tsvNames[i], algorithm,
+                                         recordSize, 1, 42, gapShapes[i],
+                                         10 ** datasetSize)
 
 def figure9(tsvname):
     print("Configuring experiment : " + tsvname)
