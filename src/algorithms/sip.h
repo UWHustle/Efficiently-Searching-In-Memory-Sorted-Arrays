@@ -3,7 +3,7 @@
 
 
 // Slope-reuse Interpolation Search - SIP
-template <int record_bytes, int guard_off = 8>
+template <int record_bytes, bool multiple_iterations = true, int guard_off = 8>
 class sip {
   using Vector = PaddedVector<record_bytes>;
   using Linear = LinearUnroll<Vector>;
@@ -42,7 +42,7 @@ class sip {
     // set bounds and do first interpolation
     Index left = 0, right = data.size() - 1, next = interpolate(x);
 
-    while(true) {
+    for (int i = 1; multiple_iterations ? true : i < 1; i++) {
       // update bounds and check for match
       if (data[next] < x)
         left = next + 1;

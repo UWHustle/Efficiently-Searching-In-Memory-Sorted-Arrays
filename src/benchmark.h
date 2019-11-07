@@ -120,9 +120,9 @@ struct Run {
         make_tuple("is",
                    searchAndMeasure<InterpolationSearch<record_bytes>,
                                     record_bytes>),
-        make_tuple("isseq", searchAndMeasure<is_seq<record_bytes>, record_bytes>),
+        make_tuple("isseq", searchAndMeasure<sip<record_bytes, false>, record_bytes>),
         // SIP and TIP
-        make_tuple("sip", searchAndMeasure<sip<record_bytes, 8>, record_bytes>),
+        make_tuple("sip", searchAndMeasure<sip<record_bytes>, record_bytes>),
         make_tuple("tip",
                    searchAndMeasure<tip<record_bytes, 64>, record_bytes>),
         // Binary Search
