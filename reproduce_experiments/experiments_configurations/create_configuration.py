@@ -165,6 +165,16 @@ def Section56_SIP(tsvname):
         for datasetSize in datasetSizes:
             utils.UaR_to_tsv(tsv, 10 ** datasetSize, algorithm, 8, 1)
 
+def Section56_SIP_FB(tsvname):
+    print("Configuring experiment : " + tsvname)
+    tsv = tsvname + ".tsv"
+    utils.rm_tsv(tsv)
+
+    recordSizes = [8, 32, 128]
+
+    for algorithm in ["bs", "sip", "b-eyt-p", "b-eyt"]:
+        for recordSize in recordSizes:
+            utils.fbids_to_tsv(tsv, algorithm, recordSize, 1)
 
 
 def Section56_TIP(tsvname):
@@ -202,5 +212,6 @@ figure8("fig8")
 figure9("fig9")
 figure10("fig10")
 figure11("fig11")
-Section56_SIP("section56_SIP")
+Section56_SIP_UAR("section56_SIP")
+Section56_SIP_FB("section56_SIP")
 Section56_TIP("section56_TIP")
