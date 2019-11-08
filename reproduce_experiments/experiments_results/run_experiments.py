@@ -52,5 +52,5 @@ def run(tsvname):
 # run("fig10.tsv")
 # run("fig11.tsv")
 run("section56_SIP.tsv")
-run("section56_TIP_cfal.tsv")
+run("section56_TIP_fal.tsv")
 run("section56_TIP_cfal.tsv")
