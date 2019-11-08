@@ -152,7 +152,7 @@ def figure11(tsvname):
         for recordSize in [8, 32, 128]:
             utils.freq2_to_tsv(tsv, algorithm, recordSize, 1)
 
-def Section56_SIP(tsvname):
+def Section56_SIP_UAR(tsvname):
     print("Configuring experiment : " + tsvname)
     tsv = tsvname + ".tsv"
     utils.rm_tsv(tsv)
@@ -212,6 +212,6 @@ figure8("fig8")
 figure9("fig9")
 figure10("fig10")
 figure11("fig11")
-Section56_SIP_UAR("section56_SIP")
-Section56_SIP_FB("section56_SIP")
+Section56_SIP_UAR("section56_SIP_UAR")
+Section56_SIP_FB("section56_SIP_FB")
 Section56_TIP("section56_TIP")
