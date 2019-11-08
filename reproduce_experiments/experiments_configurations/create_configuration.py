@@ -161,7 +161,7 @@ def Section56_SIP_UAR(tsvname):
     if fullConfiguration():
         datasetSizes = [3, 4, 5, 6, 7, 8, 9]
 
-    for algorithm in ["bs", "sip", "b-eyt-p", "b-eyt"]:
+    for algorithm in ["b-eyt-p", "b-eyt"]:
         for datasetSize in datasetSizes:
             utils.UaR_to_tsv(tsv, 10 ** datasetSize, algorithm, 8, 1)
 
@@ -189,13 +189,13 @@ def Section56_TIP(tsvname):
         datasetSizes = [3, 4, 5, 6, 7, 8, 9]
 
     shapes = [0.5, 1.05, 1.25, 1.5]
-    for algorithm in ["bs", "tip", "b-eyt-p", "b-eyt"]:
+    for algorithm in ["b-eyt-p", "b-eyt"]:
         for datasetSize in datasetSizes:
             for shape in shapes:
                 utils.fal_to_tsv(tsvfal, algorithm, 8, 1, shape,
                                  10 ** datasetSize)
 
-    for algorithm in ["bs", "tip", "b-eyt-p", "b-eyt"]:
+    for algorithm in ["b-eyt-p", "b-eyt"]:
         for datasetSize in datasetSizes:
             for shape in shapes:
                 utils.cfal_to_tsv(tsvcfal, algorithm, 8, 1, shape,

@@ -94,9 +94,9 @@ class sip {
       else if (data[next] > x)
         right = next - 1;
       else
-        return data[next];
+        return {i, 0};
       if (left == right)
-        return data[left];
+        return {i, 0};
 
       // next interpolation
       assert(left < right);
@@ -120,7 +120,7 @@ class sip {
     if (data[next] >= x) {
       return {i, data[LinearUnrollMetadata<Vector>::reverse(data, next, x)]};
     } else {
-      return {i, data[LinearUnrollMetadata<Vector>(data, next + 1, x)]};
+      return {i, data[LinearUnrollMetadata<Vector>::forward(data, next + 1, x)]};
     }
 
     return {0,0};
