@@ -5,7 +5,7 @@ import configurations_utils as utils
 
 
 def fullConfiguration():
-    return True
+    return False
 
 
 def figure2(tsvname):
