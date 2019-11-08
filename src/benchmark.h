@@ -6,9 +6,9 @@
 #include "algorithms/binary_search.h"
 #include "algorithms/linear_search.h"
 #include "algorithms/interpolation_search.h"
-#include "algorithms/interpolation_search_sequential.h"
 #include "algorithms/tip.h"
 #include "algorithms/sip.h"
+#include "algorithms/bin_eyt.h"
 #include "omp.h"
 #include "util.h"
 
@@ -115,7 +115,7 @@ struct Run {
   static std::vector<double>
               findAlgorithmAndSearch(Run &run, const DatasetBase &dataset) {
     constexpr auto algorithm_mapper = std::array < fn_tuple,
-    5 > {
+    7 > {
         // Interpolation Search
         make_tuple("is",
                    searchAndMeasure<InterpolationSearch<record_bytes>,
@@ -127,6 +127,11 @@ struct Run {
                    searchAndMeasure<tip<record_bytes, 64>, record_bytes>),
         // Binary Search
         make_tuple("bs", searchAndMeasure<Binary<record_bytes>, record_bytes>),
+        // Search Eytzinger
+        make_tuple("b-eyt", searchAndMeasure<b_eyt<record_bytes, false>, record_bytes>),
+        // Search Eytzinger with prefetch
+        make_tuple("b-eyt-p",
+                   searchAndMeasure<b_eyt<record_bytes, true>, record_bytes>),
     };
     // Find the correct search algorithm to use as specified in the run.
     auto it = std::find_if(

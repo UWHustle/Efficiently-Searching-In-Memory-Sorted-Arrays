@@ -21,11 +21,11 @@ run_param = ['Run','DatasetSize','Distribution','Parameter','#threads','SearchAl
 with open("outfile", "w") as log_file:
     subprocess.run(["./searchbench", tsv], stdout=log_file, stderr=DEVNULL)
 
-df = read_csv("outfile", sep='\t')
+df = read_csv("outfile", engine='python', sep = "\s+|\t+|\s+\t+|\t+\s+")
 
 print("\nTime to search one record:")
 set_option('display.max_rows', len(df))
-print(df.groupby(run_param)['TimeNS'].mean())
+print(df.groupby(run_param, sort=False)['TimeNS'].mean())
 
 call(['rm', 'outfile'])
 

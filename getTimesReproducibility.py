@@ -29,6 +29,3 @@ set_option('display.max_rows', len(df))
 print(df.groupby(run_param, sort=False)['TimeNS'].mean())
 
 call(['rm', 'outfile'])
-
-#More detailed statistics
-#print(df.groupby(run_param)['TimeNS'].describe(percentiles=[.25,0.75]))

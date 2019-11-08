@@ -136,11 +136,13 @@ The algorithm we have implemented in our code are:
 
 | SearchAlgorithm       | Description                      |
 | ------------- |:-------------:                  |
-| InterpolationSearch            | Interpolation Search            |
+| is            | Interpolation Search            |
 | bs            | Binary Search                    |
 | sip           | SIP - Slope Reuse Interpolation Search    |
 | tip           | TIP - Three Point Interpolation Search    |
 | isseq         | Interpolation Sequential Search |
+| b-eyt         | Search using the ["Eytzinger"](https://dl.acm.org/citation.cfm?doid=3047249.3053370) format |
+| b-eyt-p         | Search using the ["Eytzinger"](https://dl.acm.org/citation.cfm?doid=3047249.3053370) format with prefetch |
 
 
 ### Note
