@@ -42,7 +42,7 @@ class sip {
     // set bounds and do first interpolation
     Index left = 0, right = data.size() - 1, next = interpolate(x);
 
-    for (int i = 0; multiple_iterations ? true : false; i++) {
+    for (int i = 0; multiple_iterations; i++) {
       // update bounds and check for match
       if (data[next] < x)
         left = next + 1;
@@ -60,15 +60,11 @@ class sip {
       next = interpolate(x, next);
 
       // apply guards
-      if (multiple_iterations) {
-        next = std::min(std::max(left, next), right);
-      }
-      else {
-        if (next + guard_off >= right)
-          return data[Linear::reverse(data, right, x)];
-        else if (next - guard_off <= left)
-          return data[Linear::forward(data, left, x)];
-      }
+      if (next + guard_off >= right)
+        return data[Linear::reverse(data, right, x)];
+      else if (next - guard_off <= left)
+        return data[Linear::forward(data, left, x)];
+
       assert(next >= left);
       assert(next <= right);
     }
@@ -87,7 +83,7 @@ class sip {
     // set bounds and do first interpolation
     Index left = 0, right = data.size() - 1, next = interpolate(x);
     int i = 0;
-    for (; multiple_iterations ? true : false; i++) {
+    for (; multiple_iterations; i++) {
       // update bounds and check for match
       if (data[next] < x)
         left = next + 1;
@@ -105,22 +101,18 @@ class sip {
       next = interpolate(x, next);
 
       // apply guards
-      if (multiple_iterations)
-        next = std::min(std::max(left, next), right);
-      else {
-        if (next + guard_off >= right)
-          return {i, data[Linear::reverse(data, right, x)]};
-        else if (next - guard_off <= left)
-          return {i, data[Linear::forward(data, left, x)]};
-      }
+      if (next + guard_off >= right)
+        return {i, LinearUnrollMetadata<Vector>::reverse(data, right, x)};
+      else if (next - guard_off <= left)
+        return {i, LinearUnrollMetadata<Vector>::forward(data, left, x)};
       assert(next >= left);
       assert(next <= right);
     }
     // linear search base case
     if (data[next] >= x) {
-      return {i, data[LinearUnrollMetadata<Vector>::reverse(data, next, x)]};
+      return {i, LinearUnrollMetadata<Vector>::reverse(data, next, x)};
     } else {
-      return {i, data[LinearUnrollMetadata<Vector>::forward(data, next + 1, x)]};
+      return {i, LinearUnrollMetadata<Vector>::forward(data, next + 1, x)};
     }
 
     return {0,0};

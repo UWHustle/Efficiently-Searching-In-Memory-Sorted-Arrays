@@ -201,6 +201,16 @@ def Section56_TIP(tsvname):
                 utils.cfal_to_tsv(tsvcfal, algorithm, 8, 1, shape,
                                   10 ** datasetSize)
 
+def figure12(tsvname):
+    print("Configuring experiment : " + tsvname)
+    tsv = tsvname + ".tsv"
+    utils.rm_tsv(tsv)
+
+    datasetSizes = [3, 4, 5, 6, 7, 8]
+
+    for datasetSize in datasetSizes:
+            utils.UaR_to_tsv(tsv, 10 ** datasetSize, "sip_metadata", 8, 1)
+
 ################################################
 
 
@@ -212,6 +222,7 @@ figure8("fig8")
 figure9("fig9")
 figure10("fig10")
 figure11("fig11")
+figure12("fig12")
 Section56_SIP_UAR("section56_SIP_UAR")
 Section56_SIP_FB("section56_SIP_FB")
 Section56_TIP("section56_TIP")

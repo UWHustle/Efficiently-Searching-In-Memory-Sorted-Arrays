@@ -1,3 +1,4 @@
 DatasetSize	Distribution	Parameter	SearchAlgorithm	RecordSizeBytes	#threads
+1000	uniform	42	sip	8	1
 1000	uniform	42	sip_metadata	8	1
 10000	uniform	42	sip_metadata	8	1

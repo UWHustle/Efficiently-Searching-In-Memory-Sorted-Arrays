@@ -34,7 +34,7 @@ template <class Vector, int n = 8> class LinearUnrollMetadata {
       for (int i = 0; i < n; i++) {
         counter++;
         if (reverse ? (a[m - i] <= k) : (a[m + i] >= k)) {
-          return counter;
+         return counter;
         }
       }
     }
