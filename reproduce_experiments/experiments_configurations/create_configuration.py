@@ -5,7 +5,7 @@ import configurations_utils as utils
 
 
 def fullConfiguration():
-    return True
+    return False
 
 
 def figure2(tsvname):
@@ -202,5 +202,5 @@ figure8("fig8")
 figure9("fig9")
 figure10("fig10")
 figure11("fig11")
-Section56_SIP("section56_TIP")
+Section56_SIP("section56_SIP")
 Section56_TIP("section56_TIP")
