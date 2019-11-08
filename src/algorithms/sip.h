@@ -42,7 +42,7 @@ class sip {
     // set bounds and do first interpolation
     Index left = 0, right = data.size() - 1, next = interpolate(x);
 
-    for (int i = 1; multiple_iterations ? true : i < 1; i++) {
+    for (int i = 0; multiple_iterations ? true : i < 1; i++) {
       // update bounds and check for match
       if (data[next] < x)
         left = next + 1;
@@ -80,6 +80,49 @@ class sip {
 
     return 0;
   }
+
+//  __attribute__((always_inline)) std::pair<int, int> search_metadata(const Key x) {
+//    assert(data.size() >= 1);
+//    // set bounds and do first interpolation
+//    Index left = 0, right = data.size() - 1, next = interpolate(x);
+//    for (int i = 0; multiple_iterations ? true : i < 1; i++) {
+//      // update bounds and check for match
+//      if (data[next] < x)
+//        left = next + 1;
+//      else if (data[next] > x)
+//        right = next - 1;
+//      else
+//        return data[next];
+//      if (left == right)
+//        return data[left];
+//
+//      // next interpolation
+//      assert(left < right);
+//      assert(left >= 0);
+//      assert(right < data.size());
+//      next = interpolate(x, next);
+//
+//      // apply guards
+//      if (guard_off == -1)
+//        next = std::min(std::max(left, next), right);
+//      else {
+//        if (next + guard_off >= right)
+//          return data[Linear::reverse(data, right, x)];
+//        else if (next - guard_off <= left)
+//          return data[Linear::forward(data, left, x)];
+//      }
+//      assert(next >= left);
+//      assert(next <= right);
+//    }
+//    // linear search base case
+//    if (data[next] >= x) {
+//      return data[Linear::reverse(data, next, x)];
+//    } else {
+//      return data[Linear::forward(data, next + 1, x)];
+//    }
+//
+//    return 0;
+//  }
 };
 
 #endif //SIP_H
