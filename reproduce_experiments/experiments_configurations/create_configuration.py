@@ -152,6 +152,44 @@ def figure11(tsvname):
         for recordSize in [8, 32, 128]:
             utils.freq2_to_tsv(tsv, algorithm, recordSize, 1)
 
+def Section56_SIP(tsvname):
+    print("Configuring experiment : " + tsvname)
+    tsv = tsvname + ".tsv"
+    utils.rm_tsv(tsv)
+
+    datasetSizes = [3, 4, 5, 6, 7]
+    if fullConfiguration():
+        datasetSizes = [3, 4, 5, 6, 7, 8, 9]
+
+    for algorithm in ["bs", "sip", "b-eyt-p", "b-eyt"]:
+        for datasetSize in datasetSizes:
+            utils.UaR_to_tsv(tsv, 10 ** datasetSize, algorithm, 8, 1)
+
+
+
+def Section56_TIP(tsvname):
+    print("Configuring experiment : " + tsvname)
+    tsvfal = tsvname + "_fal.tsv"
+    tsvcfal = tsvname + "_cfal.tsv"
+    utils.rm_tsv(tsvfal)
+    utils.rm_tsv(tsvcfal)
+
+    datasetSizes = [3, 4, 5, 6, 7]
+    if fullConfiguration():
+        datasetSizes = [3, 4, 5, 6, 7, 8, 9]
+
+    shapes = [0.5, 1.05, 1.25, 1.5]
+    for algorithm in ["bs", "tip", "b-eyt-p", "b-eyt"]:
+        for datasetSize in datasetSizes:
+            for shape in shapes:
+                utils.fal_to_tsv(tsvfal, algorithm, 8, 1, shape,
+                                 10 ** datasetSize)
+
+    for algorithm in ["bs", "tip", "b-eyt-p", "b-eyt"]:
+        for datasetSize in datasetSizes:
+            for shape in shapes:
+                utils.cfal_to_tsv(tsvcfal, algorithm, 8, 1, shape,
+                                  10 ** datasetSize)
 
 ################################################
 
@@ -164,3 +202,5 @@ figure8("fig8")
 figure9("fig9")
 figure10("fig10")
 figure11("fig11")
+Section56_SIP("section56_TIP")
+Section56_TIP("section56_TIP")

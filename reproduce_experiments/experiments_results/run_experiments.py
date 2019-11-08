@@ -49,5 +49,5 @@ def run(tsvname):
 run("fig8_4.tsv")
 #run("fig9_fal.tsv")
 #run("fig9_cfal.tsv")
-#run("fig10.tsv")
-#run("fig11.tsv")
+run("fig10.tsv")
+run("fig11.tsv")
