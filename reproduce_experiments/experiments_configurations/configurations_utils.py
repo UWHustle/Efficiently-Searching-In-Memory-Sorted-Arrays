@@ -79,7 +79,7 @@ def freq1_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
 
 
 def freq2_to_tsv(tsvpath, searchAlgo, recordSizeBytes, nThreads):
-    add_to_tsv(tsvpath, 10 ** 5, "file", "src/datasets/wf/newman.txt",
+    add_to_tsv(tsvpath, 10 ** 4, "file", "src/datasets/wf/newman.txt",
                searchAlgo,
                recordSizeBytes, nThreads)
 
