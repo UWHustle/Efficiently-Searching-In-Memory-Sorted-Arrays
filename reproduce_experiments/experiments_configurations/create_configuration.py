@@ -211,6 +211,12 @@ def figure12(tsvname):
     for datasetSize in datasetSizes:
             utils.UaR_to_tsv(tsv, 10 ** datasetSize, "sip_metadata", 8, 1)
 
+
+    tsv2 = tsvname + "_times.tsv"
+    utils.rm_tsv(tsv2)
+    for datasetSize in datasetSizes:
+        utils.UaR_to_tsv(tsv2, 10 ** datasetSize, "sip", 8, 1)
+
 ################################################
 
 

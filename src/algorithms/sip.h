@@ -82,7 +82,7 @@ class sip {
     assert(data.size() >= 1);
     // set bounds and do first interpolation
     Index left = 0, right = data.size() - 1, next = interpolate(x);
-    int i = 0;
+    int i = 1;
     for (; multiple_iterations; i++) {
       // update bounds and check for match
       if (data[next] < x)

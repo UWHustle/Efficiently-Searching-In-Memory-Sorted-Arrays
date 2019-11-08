@@ -31,6 +31,32 @@ def run(tsvname):
                             "./reproduce_experiments/experiments_configurations/" + tsvname],
                            stdout=log_file, stderr=DEVNULL, cwd="../")
 
+def run_metadata(tsvname):
+    print("Running experiment : " + tsvname)
+    if not path.exists("../searchbench"):
+        print(
+            "Please make sure searchbench is compiled. You can compile this by running make on the parent directory.")
+        sys.exit()
+
+    if not path.exists("experiments_configurations/" + tsvname):
+        print("The configuration file does not exist: "+tsvname)
+        sys.exit()
+
+    resultFile = "experiments_results/" + tsvname + ".results"
+    if path.exists(resultFile):
+        print(
+            "This tsv has been already executed and the results have been saved.")
+        print(
+                "If you want to rerun the experiments please delete the file: " + tsvname + ".results")
+    else:
+        with open("experiments_configurations/uniq_" + tsvname, "w") as log_file:
+            subprocess.run(["uniq", "./reproduce_experiments/experiments_configurations/" + tsvname],
+                            stdout=log_file, stderr=DEVNULL, cwd="../")
+
+        with open(resultFile, "w") as log_file:
+            subprocess.run(["./searchbench", "./reproduce_experiments/experiments_configurations/uniq_" + tsvname],
+                           stdout=log_file, stderr=DEVNULL, cwd="../")
+
 
 ##########################
 
@@ -48,7 +74,10 @@ run("fig9_fal.tsv")
 run("fig9_cfal.tsv")
 run("fig10.tsv")
 run("fig11.tsv")
+run("fig12_times.tsv")
 run("section56_SIP_UAR.tsv")
 run("section56_SIP_FB.tsv")
 run("section56_TIP_fal.tsv")
 run("section56_TIP_cfal.tsv")
+
+run_metadata("fig12.tsv")
