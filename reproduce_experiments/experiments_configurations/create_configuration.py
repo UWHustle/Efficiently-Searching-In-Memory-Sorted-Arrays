@@ -90,7 +90,10 @@ def figure8(tsvname):
     gapShapes = [0.7, 0.9, 0.99, 0.9999]
     tsvNames = [tsv1, tsv2, tsv3, tsv4]
 
-    datasetSizes = [3,4, 5, 6, 7]
+    datasetSizes = [4, 5, 6, 7]
+    if fullConfiguration():
+        datasetSizes = [4, 5, 6, 7, 8]
+
     recordSizes = [8, 32, 128]
     algorithms = ["isseq", "sip"]
 
