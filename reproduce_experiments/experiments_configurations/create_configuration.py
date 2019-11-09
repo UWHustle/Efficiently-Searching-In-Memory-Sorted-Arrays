@@ -107,27 +107,29 @@ def figure8(tsvname):
 
 def figure9(tsvname):
     print("Configuring experiment : " + tsvname)
-    tsvfal = tsvname + "_fal.tsv"
-    tsvcfal = tsvname + "_cfal.tsv"
-    utils.rm_tsv(tsvfal)
-    utils.rm_tsv(tsvcfal)
+    utils.rm_tsv(tsvname + "_05_fal.tsv")
+    utils.rm_tsv(tsvname + "_105_fal.tsv")
+    utils.rm_tsv(tsvname + "_125_fal.tsv")
+    utils.rm_tsv(tsvname + "_15_fal.tsv")
+    utils.rm_tsv(tsvname + "_05_fal.tsv")
+    utils.rm_tsv(tsvname + "_105_fal.tsv")
+    utils.rm_tsv(tsvname + "_125_fal.tsv")
+    utils.rm_tsv(tsvname + "_15_fal.tsv")
 
     datasetSizes = [3, 4, 5, 6, 7]
     if fullConfiguration():
         datasetSizes = [3, 4, 5, 6, 7, 8, 9]
 
-    shapes = [0.5, 1.05, 1.25, 1.5]
     for algorithm in ["bs", "tip"]:
         for datasetSize in datasetSizes:
-            for shape in shapes:
-                utils.fal_to_tsv(tsvfal, algorithm, 8, 1, shape,
-                                 10 ** datasetSize)
-
-    for algorithm in ["bs", "tip"]:
-        for datasetSize in datasetSizes:
-            for shape in shapes:
-                utils.cfal_to_tsv(tsvcfal, algorithm, 8, 1, shape,
-                                  10 ** datasetSize)
+            utils.fal_to_tsv(tsvname + "_05_fal.tsv", algorithm, 8, 1, 0.5, 10 ** datasetSize)
+            utils.fal_to_tsv(tsvname + "_105_fal.tsv", algorithm, 8, 1, 1.05, 10 ** datasetSize)
+            utils.fal_to_tsv(tsvname + "_125_fal.tsv", algorithm, 8, 1, 1.25, 10 ** datasetSize)
+            utils.fal_to_tsv(tsvname + "_15_fal.tsv", algorithm, 8, 1, 1.5, 10 ** datasetSize)
+            utils.cfal_to_tsv(tsvname + "_05_cfal.tsv", algorithm, 8, 1, 0.5, 10 ** datasetSize)
+            utils.cfal_to_tsv(tsvname + "_105_cfal.tsv", algorithm, 8, 1, 1.05, 10 ** datasetSize)
+            utils.cfal_to_tsv(tsvname + "_125_cfal.tsv", algorithm, 8, 1, 1.25, 10 ** datasetSize)
+            utils.cfal_to_tsv(tsvname + "_15_cfal.tsv", algorithm, 8, 1, 1.5, 10 ** datasetSize)
 
 
 def figure10(tsvname):
@@ -182,27 +184,30 @@ def Section56_SIP_FB(tsvname):
 
 def Section56_TIP(tsvname):
     print("Configuring experiment : " + tsvname)
-    tsvfal = tsvname + "_fal.tsv"
-    tsvcfal = tsvname + "_cfal.tsv"
-    utils.rm_tsv(tsvfal)
-    utils.rm_tsv(tsvcfal)
+    utils.rm_tsv(tsvname + "_05_fal.tsv")
+    utils.rm_tsv(tsvname + "_105_fal.tsv")
+    utils.rm_tsv(tsvname + "_125_fal.tsv")
+    utils.rm_tsv(tsvname + "_15_fal.tsv")
+    utils.rm_tsv(tsvname + "_05_fal.tsv")
+    utils.rm_tsv(tsvname + "_105_fal.tsv")
+    utils.rm_tsv(tsvname + "_125_fal.tsv")
+    utils.rm_tsv(tsvname + "_15_fal.tsv")
 
     datasetSizes = [3, 4, 5, 6, 7]
     if fullConfiguration():
         datasetSizes = [3, 4, 5, 6, 7, 8, 9]
 
-    shapes = [0.5, 1.05, 1.25, 1.5]
     for algorithm in ["b-eyt-p", "b-eyt"]:
         for datasetSize in datasetSizes:
-            for shape in shapes:
-                utils.fal_to_tsv(tsvfal, algorithm, 8, 1, shape,
-                                 10 ** datasetSize)
+            utils.fal_to_tsv(tsvname + "_05_fal.tsv", algorithm, 8, 1, 0.5, 10 ** datasetSize)
+            utils.fal_to_tsv(tsvname + "_105_fal.tsv", algorithm, 8, 1, 1.05, 10 ** datasetSize)
+            utils.fal_to_tsv(tsvname + "_125_fal.tsv", algorithm, 8, 1, 1.25, 10 ** datasetSize)
+            utils.fal_to_tsv(tsvname + "_15_fal.tsv", algorithm, 8, 1, 1.5, 10 ** datasetSize)
+            utils.cfal_to_tsv(tsvname + "_05_cfal.tsv", algorithm, 8, 1, 0.5, 10 ** datasetSize)
+            utils.cfal_to_tsv(tsvname + "_105_cfal.tsv", algorithm, 8, 1, 1.05, 10 ** datasetSize)
+            utils.cfal_to_tsv(tsvname + "_125_cfal.tsv", algorithm, 8, 1, 1.25, 10 ** datasetSize)
+            utils.cfal_to_tsv(tsvname + "_15_cfal.tsv", algorithm, 8, 1, 1.5, 10 ** datasetSize)
 
-    for algorithm in ["b-eyt-p", "b-eyt"]:
-        for datasetSize in datasetSizes:
-            for shape in shapes:
-                utils.cfal_to_tsv(tsvcfal, algorithm, 8, 1, shape,
-                                  10 ** datasetSize)
 
 def figure12(tsvname):
     print("Configuring experiment : " + tsvname)
