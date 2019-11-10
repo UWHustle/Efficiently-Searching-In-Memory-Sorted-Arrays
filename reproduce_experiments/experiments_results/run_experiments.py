@@ -94,5 +94,5 @@ run("section56_TIP_05_cfal.tsv")
 run("section56_TIP_105_cfal.tsv")
 run("section56_TIP_125_cfal.tsv")
 run("section56_TIP_15_cfal.tsv")
-
+run("section56_TIP_Freq.tsv")
 run_metadata("fig12.tsv")

@@ -208,6 +208,18 @@ def Section56_TIP(tsvname):
             utils.cfal_to_tsv(tsvname + "_125_cfal.tsv", algorithm, 8, 1, 1.25, 10 ** datasetSize)
             utils.cfal_to_tsv(tsvname + "_15_cfal.tsv", algorithm, 8, 1, 1.5, 10 ** datasetSize)
 
+def Section56_TIP_FREQ(tsvname):
+    print("Configuring experiment : " + tsvname)
+    tsv = tsvname + ".tsv"
+    utils.rm_tsv(tsv)
+
+    for algorithm in ["b-eyt-p", "b-eyt"]:
+        for recordSize in [8, 32, 128]:
+            utils.freq1_to_tsv(tsv, algorithm, recordSize, 1)
+
+    for algorithm in ["b-eyt-p", "b-eyt"]:
+        for recordSize in [8, 32, 128]:
+            utils.freq2_to_tsv(tsv, algorithm, recordSize, 1)
 
 def figure12(tsvname):
     print("Configuring experiment : " + tsvname)
@@ -240,3 +252,4 @@ figure12("fig12")
 Section56_SIP_UAR("section56_SIP_UAR")
 Section56_SIP_FB("section56_SIP_FB")
 Section56_TIP("section56_TIP")
+Section56_TIP_FREQ("section56_TIP_Freq")
