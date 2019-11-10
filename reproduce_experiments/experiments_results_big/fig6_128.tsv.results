@@ -1,0 +1,16 @@
+
+Time to search one record:
+DatasetSize  Distribution  Parameter  #threads  SearchAlgorithm  RecordSizeBytes
+1000         uniform       42         1         bs               128                  17.156153
+10000        uniform       42         1         bs               128                  85.170556
+100000       uniform       42         1         bs               128                 155.547323
+1000000      uniform       42         1         bs               128                 446.724334
+10000000     uniform       42         1         bs               128                 859.432404
+100000000    uniform       42         1         bs               128                1780.100063
+1000         uniform       42         1         sip              128                   8.226352
+10000        uniform       42         1         sip              128                  53.289888
+100000       uniform       42         1         sip              128                  67.181323
+1000000      uniform       42         1         sip              128                 208.968396
+10000000     uniform       42         1         sip              128                 266.864444
+100000000    uniform       42         1         sip              128                 408.329676
+Name: TimeNS, dtype: float64

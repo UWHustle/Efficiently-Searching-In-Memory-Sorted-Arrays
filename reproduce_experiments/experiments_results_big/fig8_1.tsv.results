@@ -1,0 +1,34 @@
+
+Time to search one record:
+DatasetSize  Distribution  Parameter  #threads  SearchAlgorithm  RecordSizeBytes
+1000         gap           42,0.7     1         isseq            8                    4.514752
+                                                sip              8                    4.809563
+10000        gap           42,0.7     1         isseq            8                   23.904274
+                                                sip              8                   25.197727
+100000       gap           42,0.7     1         isseq            8                   30.058318
+                                                sip              8                   34.463212
+1000000      gap           42,0.7     1         isseq            8                   43.411509
+                                                sip              8                   47.603676
+10000000     gap           42,0.7     1         isseq            8                  113.780710
+                                                sip              8                  112.301862
+1000         gap           42,0.7     1         isseq            32                   5.160515
+                                                sip              32                   5.522921
+10000        gap           42,0.7     1         isseq            32                  30.582449
+                                                sip              32                  32.691743
+100000       gap           42,0.7     1         isseq            32                  37.891027
+                                                sip              32                  42.365086
+1000000      gap           42,0.7     1         isseq            32                  84.627476
+                                                sip              32                  84.512615
+10000000     gap           42,0.7     1         isseq            32                 176.502764
+                                                sip              32                 153.147645
+1000         gap           42,0.7     1         isseq            128                  6.200856
+                                                sip              128                  6.470645
+10000        gap           42,0.7     1         isseq            128                 40.461539
+                                                sip              128                 44.220164
+100000       gap           42,0.7     1         isseq            128                 47.890379
+                                                sip              128                 51.886393
+1000000      gap           42,0.7     1         isseq            128                172.984284
+                                                sip              128                154.716680
+10000000     gap           42,0.7     1         isseq            128                265.638937
+                                                sip              128                213.142867
+Name: TimeNS, dtype: float64

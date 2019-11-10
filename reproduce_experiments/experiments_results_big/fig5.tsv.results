@@ -1,0 +1,16 @@
+
+Time to search one record:
+DatasetSize  Distribution  Parameter      #threads  SearchAlgorithm  RecordSizeBytes
+100000       file          fb-289000.txt  1         sip              8                   55.951797
+                                                    bs               8                  105.424390
+                                                    tip              8                  106.471352
+                                                    is               8                   75.939620
+                                                    sip              32                  69.551347
+                                                    bs               32                 153.911805
+                                                    tip              32                 126.864543
+                                                    is               32                 103.005243
+                                                    sip              128                129.677355
+                                                    bs               128                229.440435
+                                                    tip              128                208.838227
+                                                    is               128                185.337356
+Name: TimeNS, dtype: float64
