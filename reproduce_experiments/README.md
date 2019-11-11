@@ -15,8 +15,7 @@ Performing new experiments by adding new datasets and modifying the parameters i
 
 ### Reproduce Paper Experiments
 
-We have created a set of scripts that create the configuration files that our benchmark accepts, 
-run the experiments, process the results and create the figures presented in our paper. We have gathered these scripts in this folder.
+We have created a set of scripts that replicate the experiments we present in our paper. This set of scripts creates the necessary configuration files that our benchmarking framework accepts, runs experiments, processes the results and creates the figures we use in our paper.
 
 ### Scripts
 
@@ -35,9 +34,9 @@ In the reproduce_experiments folder, we include the following scripts:
 | start_notebook.sh | Starts the jupyter notebook that creates the figures based on the experiment results. | 
 
 ##### Notes
-+ The datasets used in our experiments are produced during execution by our benchmarking framework or they are located in the src/datasets folder of the repository. Our setup runs all the experiments one by one. The benchmarking framework provides the option to export the datasets it generates.
-+ We run each experiment multiple times to ensure stable results, as we describe in our paper. 
-+ We only use one seed per each randomly generated dataset, the results in our paper use multiple seeds to reduce the effects of randomness. 
++The datasets used in our experiments are produced during execution by our benchmarking framework or they are located in the src/datasets folder of the repository. Our setup runs all the experiments one by one. The benchmarking framework provides the option to export the datasets it generates.
++We run each experiment multiple times to ensure stable results, as we describe in our paper. 
++We only use one seed per each randomly generated dataset to reproduce the experiments, the results in our paper use multiple seeds to reduce the effects of randomness. 
 
 
 
@@ -52,5 +51,6 @@ The experiments require 14 hours to run using the hardware described. We offer t
 experiments_configurations/create_configurations.py file.
 The experiments with the reduced dataset sizes require 1 hour to run and 3 GB of main memory, but not provide the complete results presented in our paper.
 #### Results
-The figures produced by the scripts we provide are named after their position in the paper. 
+The figures produced by the scripts we provide are named after their position in the paper. Furthermore, we produce a few figures that are not present in the paper but are mentioned in Section 5.6.
 
+In addition to the figures, the results are stored in the experiments_results folder. Each line describes corresponds to one experiment and its configuration, the last column is the time required to search for one record.
