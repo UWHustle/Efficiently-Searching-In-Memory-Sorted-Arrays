@@ -1,0 +1,18 @@
+
+Time to search one record:
+DatasetSize  Distribution  Parameter  #threads  SearchAlgorithm  RecordSizeBytes
+1000         fal           1.5        1         bs               8                    12.860371
+10000        fal           1.5        1         bs               8                    44.618903
+100000       fal           1.5        1         bs               8                    81.245778
+1000000      fal           1.5        1         bs               8                   149.204918
+10000000     fal           1.5        1         bs               8                   407.263346
+100000000    fal           1.5        1         bs               8                   811.664871
+1000000000   fal           1.5        1         bs               8                  1455.693530
+1000         fal           1.5        1         tip              8                    20.186463
+10000        fal           1.5        1         tip              8                    45.080868
+100000       fal           1.5        1         tip              8                    64.392891
+1000000      fal           1.5        1         tip              8                    96.422058
+10000000     fal           1.5        1         tip              8                   264.130668
+100000000    fal           1.5        1         tip              8                   350.359409
+1000000000   fal           1.5        1         tip              8                   547.475299
+Name: TimeNS, dtype: float64

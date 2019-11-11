@@ -1,0 +1,16 @@
+
+Time to search one record:
+DatasetSize  Distribution  Parameter   #threads  SearchAlgorithm  RecordSizeBytes
+1000000      file          wiki.txt    1         b-eyt-p          8                   67.162266
+                                                                  32                  82.798800
+                                                                  128                111.825293
+                                                 b-eyt            8                   72.061969
+                                                                  32                  78.948195
+                                                                  128                 90.838624
+10000        file          newman.txt  1         b-eyt-p          8                   95.661405
+                                                                  32                 118.836794
+                                                                  128                176.466035
+                                                 b-eyt            8                  104.536003
+                                                                  32                 128.463108
+                                                                  128                159.127488
+Name: TimeNS, dtype: float64
