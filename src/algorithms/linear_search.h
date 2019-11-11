@@ -26,4 +26,27 @@ public:
   }
 };
 
+template <class Vector, int n = 8> class LinearUnrollMetadata {
+  template <bool reverse = false>
+  static int64_t linearSearchUnroll(const Vector &a, int64_t m, Key k) {
+    int counter = 0;
+    for (;; m = (reverse ? m - n : m + n)) {
+      for (int i = 0; i < n; i++) {
+        counter++;
+        if (reverse ? (a[m - i] <= k) : (a[m + i] >= k)) {
+         return counter;
+        }
+      }
+    }
+  }
+
+ public:
+  static int64_t forward(const Vector &a, const int64_t guessIx, const Key x) {
+    return linearSearchUnroll<false>(a, guessIx, x);
+  }
+  static int64_t reverse(const Vector &a, const int64_t guessIx, const Key x) {
+    return linearSearchUnroll<true>(a, guessIx, x);
+  }
+};
+
 #endif

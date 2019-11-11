@@ -1,78 +1,56 @@
-## Reproducability of Results
-This directory provides the necessary tools to reproduce the experiments presentes at our paper   
-["Efficiently Searching In-Memory Sorted Arrays:Revenge of the Interpolation 
-Search?"](http://pages.cs.wisc.edu/~chronis/files/efficiently_searching_sorted_arrays.pdf)
-presented at ACM SIGMOD 2019.
+## Reproducibility Instructions for:
+####  Efficiently Searching In-Memory Sorted Arrays: Revenge of the Interpolation Search?
 
-## Introduction
-We have created a jupyter notebook that runs the necesary experiments and produces the figures shown in the paper.
-In the Reproducibility.ipynb notebook we have created a cell for each figure and we have created helper functions that
-configure and run the exepriments.
+###### DOI: 10.1145/3299869.3300075
 
-The notebook can be run via a browser or without a graphical interface. Also we provide the configuration for two docker containers
-that can run the notebook in these two modes.
+### Introduction
 
-The result of executing the notebook are the figures of the paper, and are saved in the figures directory. The results directory 
-stores the raw results. In the format described in the README of the root folder of this repository.
+In our paper, we introduced SIP (Slope Re-use Interpolation) and TIP (Three-Point Interpolation), two algorithms for searching sorted in-memory arrays. We compare SIP and TIP to Binary Search. The evaluation presented in our paper compares the algorithm while it varies the size of the arrays we search, the distribution of the search keys and the size of the attached payload of each record contained in the array (key and payload).
 
-We have tested our scripts in Ubuntu 18.04 and 16.04, if you want to use any other operating system we reccomend you use 
-the docker images we provide.
+### Benchmarking framework
 
-## How to use - Run Locally
-In the local mode, the docker container are not used. 
-The first step is to install all the necessary packages and compile the search benchmark:
-```bash
-./install.sh
-```
-### Use the jupyter notebook interface
-You can start the notebook by running:
-```bash
-./run_local_notebook.sh
-```
-A browser windon will open. By executing all the cells of the notebook you will be able to see the figures and also they will be saved
-in pdf format in the figures folder.
+We created a benchmarking framework to experiment with the different search algorithms and easily vary crucial parameters (dataset size, distribution of keys, distribution, search algorithm, record size, #threads used). We have released this framework on GitHub. The benchmarking framework includes the datasets or data generators for all the datasets used in our paper.
 
-### No gui
-You produce all the figures by running:
-```bash
-./run_local_without_gui.sh
-```
-The figures will be saved in pdf format in the figures folder. Also a file named Reproducibility.ipynb.html will be produced
-and will contained the executed notebook will all its outputs.
+Performing new experiments by adding new datasets and modifying the parameters is a straightforward process. Additional search algorithms can be added to the framework.
 
-## How to use - Run in a Docker container
-First [install docker](https://docs.docker.com/v17.09/engine/installation/#desktop) on your system.
+### Reproduce Paper Experiments
 
-### Use the jupyter notebook interface
-You can start the notebook by running:
-```bash
-./run_docker.sh
-```
-When the container is built and started you will see on your terminal the address for accessing the notebook running on the container
-from your host system's browser. By executing all the cells of the notebook you will be able to see the figures in your browser.
-You can use the script:
-```bash
-./copy_results_from_docker.sh
-```
-to copy the generated figures from the docker container to your host machine. The will be saved in the figures_from_docker directory.
+We have created a set of scripts that create the configuration files that our benchmark accepts, 
+run the experiments, process the results and create the figures presented in our paper. We have gathered these scripts in this folder.
 
-### No gui
-You can start the container by running:
-```bash
-./run_docker_without_gui.sh
-```
-When the container is built and started you it will execute all the experiments. On your terminal you will see a message 
-when the experiments are completed.
-You can use the script:
-```bash
-./copy_results_from_docker.sh
-```
-to copy the generated figures from the docker container to your host machine. The will be saved in the figures_from_docker directory.
+### Scripts
 
-## Notes
-Some of the experiments require a long time to run. The notebook we provide runs a scaled version of the exeperiments by default. 
-You can run the full experiment by replacing this line in the notebook:
-#### TODO
+In the reproduce_experiments folder, we include the following scripts:
+
+#### All scripts should be run from withing the reproduce_experiments directory
+
+| Script Name   | Function       |
+| ------------- |:-------------: |
+|  install.sh   |  Installs all necessary packages for the benchmarking framework and to reproduce the experiments. Compiles the benchmarking framework. Note: One of the packages installed requires manual input during installation.
+| create_configurations.sh | Creates all the experiment configurations (tsv) files, used by the benchmarking framework. The configuration files are stored in the experiments_configurations folder. Each configuration file is named fig<id>.tsv. The code that creates the configuration files can be found inside the same folder.|
+| run_experiments.sh | Runs the experiments specified by the configuration files stored in the experiments_configurations folder. Saves the results in the experiments_results folder. The code that runs the experiments is located in the same folder. The results are saved in files named <configuration_file_name>.results. If the results files for an experiment exists the experiment is skipped until the result file is deleted. |
+| create_figures.sh | Processes the results of the experiments and produces the figures used in our paper. The figures are stored in the figures directory. The code to produce the figures is contained in a jupyter notebook named CreateFigures.ipynb. This scripts runs the code and produces the figures without the need to open the notebook. |
+| master_script.sh | Runs all of the above scripts |
+| clean.sh | Deletes the produced experiment configurations, results, and produced figures. |
+| start_notebook.sh | Starts the jupyter notebook that creates the figures based on the experiment results. | 
+
+##### Notes
++ The datasets used in our experiments are produced during execution by our benchmarking framework or they are located in the src/datasets folder of the repository. Our setup runs all the experiments one by one. The benchmarking framework provides the option to export the datasets it generates.
++ We run each experiment multiple times to ensure stable results, as we describe in our paper. 
++ We only use one seed per each randomly generated dataset, the results in our paper use multiple seeds to reduce the effects of randomness. 
 
 
+
+#### System Requirements
+Our experiments require 60 GB of free main memory. The number of threads used is controlled by the experiment but is usually 1 and at all times less than 32. We have tested our scripts using Ubuntu (16.04, 18.04) and Mac ( > 10.12) operating systems. 
+
+#### Hardware Used
+For our paper, we used a CloudLab (www.cloudlab.us) hosted server with two Intel(R) Xeon(R) CPU E5-2630 v3 running at 2.40GHz with 20MB ofL3 cache, based on the Haswell architecture, and 128GB of main memory. The CPU Governor setting is set to the "Performance" option. 
+
+#### Running Time
+The experiments require 14 hours to run using the hardware described. We offer the option to reduce the size of the datasets used. This can be achieved by modifying the return value of the fullConfiguration() method to False, located in the:
+experiments_configurations/create_configurations.py file.
+The experiments with the reduced dataset sizes require 1 hour to run and 3 GB of main memory, but not provide the complete results presented in our paper.
+#### Results
+The figures produced by the scripts we provide are named after their position in the paper. 
 
