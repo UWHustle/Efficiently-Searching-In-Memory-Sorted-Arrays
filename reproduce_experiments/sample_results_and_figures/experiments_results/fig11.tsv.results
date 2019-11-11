@@ -1,0 +1,16 @@
+
+Time to search one record:
+DatasetSize  Distribution  Parameter   #threads  SearchAlgorithm  RecordSizeBytes
+1000000      file          wiki.txt    1         tip              8                   46.098562
+                                                                  32                  49.015947
+                                                                  128                 51.869883
+                                                 bs               8                   83.101257
+                                                                  32                 109.881746
+                                                                  128                135.320026
+10000        file          newman.txt  1         tip              8                   79.516469
+                                                                  32                  89.091171
+                                                                  128                101.588922
+                                                 bs               8                   80.534201
+                                                                  32                 109.077537
+                                                                  128                152.687996
+Name: TimeNS, dtype: float64
