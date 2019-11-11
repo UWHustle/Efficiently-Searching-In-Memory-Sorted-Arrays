@@ -22,7 +22,7 @@ run the experiments, process the results and create the figures presented in our
 
 In the reproduce_experiments folder, we include the following scripts:
 
-##### All scripts should be run from withing the reproduce_experiments directory
+#### All scripts should be run from withing the reproduce_experiments directory
 
 | Script Name   | Function       |
 | ------------- |:-------------: |
