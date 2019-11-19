@@ -1,4 +1,4 @@
-if [[ "$OSTYPE" == "darwin*" ]]; then
+if [[ `uname` == "Darwin" ]]; then
 		brew update
         brew install libomp
         brew install python3
