@@ -41,7 +41,9 @@ In the reproduce_experiments folder, we include the following scripts:
 
 
 #### System Requirements
-Our experiments require 60 GB of free main memory. The number of threads used is controlled by the experiment but is usually 1 and at all times less than 32. We have tested our scripts using Ubuntu (16.04, 18.04) and Mac ( > 10.12) operating systems. 
+Our experiments require 60 GB of free main memory. The number of threads used is controlled by the experiment but is usually 1 and at all times less than 32. We have tested our scripts using Ubuntu 18.04 and Mac ( > 10.12) operating systems. 
+
+The dependencies our scripts install are: omp, python3, python3-pandas, g++, jupyter notebook
 
 #### Hardware Used
 For our paper, we used a CloudLab (www.cloudlab.us) hosted server with two Intel(R) Xeon(R) CPU E5-2630 v3 running at 2.40GHz with 20MB ofL3 cache, based on the Haswell architecture, and 128GB of main memory. The CPU Governor setting is set to the "Performance" option. 
