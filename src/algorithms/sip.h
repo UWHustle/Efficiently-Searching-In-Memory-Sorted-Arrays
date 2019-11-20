@@ -83,7 +83,7 @@ class sip {
     // set bounds and do first interpolation
     Index left = 0, right = data.size() - 1, next = interpolate(x);
     int i = 1;
-    for (; multiple_iterations; i++) {
+    for (; multiple_iterations; ) {
       // update bounds and check for match
       if (data[next] < x)
         left = next + 1;
@@ -99,6 +99,7 @@ class sip {
       assert(left >= 0);
       assert(right < data.size());
       next = interpolate(x, next);
+      ++i;
 
       // apply guards
       if (next + guard_off >= right)

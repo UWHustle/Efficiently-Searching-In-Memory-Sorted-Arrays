@@ -129,12 +129,9 @@ struct Run {
       steps += val.second;
     }
 
-    std::cout<< (double) iterations / (double)inputDataset.permuted_keys.size() << " " << (double)steps / (double)inputDataset.permuted_keys.size() << std::endl;
-//    std::vector<std::string> res(n_samples * run.n_thds);
-//    for (auto p : ns){
-//      res.push_back(std::to_string(p.first) + "\t" + std::to_string(p.second));
-//    }
-//    std::cout<< "AAAAAA" << std::endl;
+    std::cout<< (double) iterations / (double)inputDataset.permuted_keys.size()
+    << " " << (double)steps / (double)inputDataset.permuted_keys.size()
+    << std::endl;
     return {};
   }
 
