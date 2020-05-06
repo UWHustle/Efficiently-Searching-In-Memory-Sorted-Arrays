@@ -1,4 +1,5 @@
-## Efficiently Searching In MemorySorted Arrays
+ [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3802579.svg)](https://doi.org/10.5281/zenodo.3802579)
+## Efficiently Searching In MemorySorted Arrays           
 This repo hosts the code used in the paper   
 ["Efficiently Searching In-Memory Sorted Arrays:Revenge of the Interpolation 
 Search?"](http://pages.cs.wisc.edu/~chronis/files/efficiently_searching_sorted_arrays.pdf)
