@@ -117,7 +117,7 @@ struct Run {
     const auto
         &inputDataset = static_cast<const Dataset<record_bytes> &>(dataset);
 
-    sip searchAlgorithm(inputDataset.keys);
+    sip<record_bytes> searchAlgorithm(inputDataset.keys);
 
     std::vector<std::pair<int, int>> res;
 
@@ -176,7 +176,10 @@ struct Run {
   }
 
   auto search(const DatasetBase &dataset) {
-    auto[n, distribution, param, record_bytes] = dataset_param;
+    auto n = dataset_param.n;
+    auto distribution = dataset_param.distribution;
+    auto param = dataset_param.param;
+    auto record_bytes = dataset_param.record_bytes;
     // Stores the times to search each 1000 record subset
     std::vector<double> ns;
 

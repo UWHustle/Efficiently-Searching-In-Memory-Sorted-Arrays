@@ -43,7 +43,10 @@ int main(int argc, char *argv[]) {
   RunTuple old_param;
   auto t0 = std::chrono::steady_clock::now();
   for (auto &run : runs) {
-    auto[distribution, param, n, record_bytes] = run.dataset_param;
+    auto distribution = run.dataset_param.distribution;
+    auto param = run.dataset_param.param;
+    auto n = run.dataset_param.n;
+    auto record_bytes = run.dataset_param.record_bytes;
     RunTuple new_param{run.dataset_param, run.name, run.n_thds};
     if (new_param != old_param) {
       std::cerr << "Running experiment: ";
