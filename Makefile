@@ -18,12 +18,12 @@ HEADERS=src/benchmark.h src/datasets.h src/benchmark_utils.h \
 		src/algorithms/sip.h src/algorithms/tip.h
 SOURCES=src/benchmark.cc
 
-.PHONY: run gdb clean perf
+.PHONY: run gdb clean perf dump dump_bin txt_to_bin bin_to_txt sample_bin
 
 ##### Run Targets ######
 run : searchbench experiments.tsv
 
-gdb : debug
+gdb : debug_searchbench
 gdb :
 	gdb --args ./debug experiments.tsv
 
@@ -33,32 +33,43 @@ perf :
 	perf record -F99 -g ./perf experiments.tsv
 
 clean:
-	rm -f ./searchbench ./debug ./dump
+	rm -f ./searchbench ./debug ./dump ./dump_bin ./txt_to_bin ./sample_bin ./bin_to_txt
+
+dumpall: dump dump_bin txt_to_bin bin_to_txt sample_bin
 
 ## GCC ###############
 ####### Build Targets #########
 
 searchbench: GCCCXXFLAGS += -O3 -DNDEBUG
 searchbench: $(SOURCES) $(HEADERS)
-	$(GCCCXX) $(GCCCXXFLAGS) $(SOURCES) -osearchbench $(LDFLAGS)
+	$(GCCCXX) $(GCCCXXFLAGS) $(SOURCES) -o$@ $(LDFLAGS)
 
-debug : GCCCXXFLAGS += -O0
-debug : $(SOURCES) $(HEADERS)
-		$(GCCCXX) $(GCCCXXFLAGS) $(SOURCES) -odebug $(LDFLAGS)
+debug_searchbench : GCCCXXFLAGS += -O0
+debug_searchbench : $(SOURCES) $(HEADERS)
+		$(GCCCXX) $(GCCCXXFLAGS) $(SOURCES) -o$@ $(LDFLAGS)
 
 dump : src/dump.cc src/benchmark.h
-	$(CXX) $(GCCCXXFLAGS) src/dump.cc -odump $(LDFLAGS)
+	$(CXX) $(GCCCXXFLAGS) src/dump.cc -o$@ $(LDFLAGS)
+
+dump_bin : src/dump_bin.cc src/benchmark.h
+	$(CXX) $(GCCCXXFLAGS) src/dump_bin.cc -o$@ $(LDFLAGS)
+
+txt_to_bin: src/convert_txt_to_bin.cc src/benchmark.h
+	$(CXX) $(GCCCXXFLAGS) src/convert_txt_to_bin.cc -o$@ $(LDFLAGS)
+
+bin_to_txt: src/convert_bin_to_txt.cc src/benchmark.h
+	$(CXX) $(GCCCXXFLAGS) src/convert_bin_to_txt.cc -o$@ $(LDFLAGS)
+
+sample_bin: src/sample_bin.cc src/benchmark.h
+	$(CXX) $(GCCCXXFLAGS) src/sample_bin.cc -o$@ $(LDFLAGS)
 
 ## CLANG ######################
 ####### Build Targets #########
 
 clang5_searchbench: CLANGCXXFLAGS += -O3 -DNDEBUG
 clang5_searchbench: $(SOURCES) $(HEADERS)
-	$(CLANGCXX) $(CLANGCXXFLAGS) $(SOURCES) -osearchbench $(LDFLAGS)
+	$(CLANGCXX) $(CLANGCXXFLAGS) $(SOURCES) -o$@ $(LDFLAGS)
 
 clang5_debug: CLANGCXXFLAGS += -O0
 clang5_debug: $(SOURCES) $(HEADERS)
-	$(CLANGCXX) $(CLANGCXXFLAGS) $(SOURCES) -odebug $(LDFLAGS)
-
-clang5_dump: src/dump.cc src/benchmark.h
-	$(CLANGCXX) $(CLANGCXXFLAGS) src/dump.cc -o $dump $(LDFLAGS)
+	$(CLANGCXX) $(CLANGCXXFLAGS) $(SOURCES) -o$@ $(LDFLAGS)

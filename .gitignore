@@ -2,6 +2,12 @@ clang5
 outfile
 searchbench
 dump
+debug_searchbench
+dump_bin
+txt_to_bin
+sample_bin
+bin_to_txt
+
 reproduce_experiments/experiments_results/*.results
 reproduce_experiments/experiments_configurations/*.tsv
 reproduce_experiments/figures/*.pdf
